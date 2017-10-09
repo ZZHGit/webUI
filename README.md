@@ -60,7 +60,7 @@ requests](CONTRIBUTING.md#pull-requests).
 
 ### Author
 
-ZZH <zzh@gmail.com>
+ZZH <563459375@qq.com>
 
 ### LICENSE
 
