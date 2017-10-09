@@ -60,7 +60,7 @@ requests](CONTRIBUTING.md#pull-requests).
 
 ### Author
 
-ZZH <563459375@qq.com>
+ZZH <a href="mailto:563459375@qq.com">563459375@qq.com</a>
 
 ### LICENSE
 
