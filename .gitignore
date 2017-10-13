@@ -26,7 +26,6 @@ venv
 
 # Test coverage
 coverage
-.nyc_output
 
 # Logs
 logs

@@ -6,9 +6,8 @@
 * Copies static files to the output folder (`copy.js`)
 * Launches [Webpack](https://webpack.github.io/) compiler in a watch mode (via [webpack-middleware](https://github.com/kriasoft/webpack-middleware))
 * Launches Node.js server from the compiled output folder (`runServer.js`)
-* Launches [Browsersync](https://browsersync.io/),
-  [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement), and
-  [React Hot Loader](https://github.com/gaearon/react-hot-loader)
+* Launches [Browsersync](https://browsersync.io/) and
+  [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement)
 
 ### `yarn run build` (`build.js`)
 
@@ -35,13 +34,13 @@ Flag        | Description
 For example:
 
 ```sh
-$ yarn run build -- --release --verbose   # Build the app in production mode
+$ yarn run build --release --verbose   # Build the app in production mode
 ```
 
 or
 
 ```sh
-$ yarn start -- --release                 # Launch dev server in production mode
+$ yarn start --release                 # Launch dev server in production mode
 ```
 
 ## Misc
