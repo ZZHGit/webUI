@@ -1,3 +1,12 @@
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
 import path from 'path';
 import webpack from 'webpack';
 import AssetsPlugin from 'assets-webpack-plugin';
@@ -78,7 +87,7 @@ const config = {
               {
                 targets: {
                   browsers: pkg.browserslist,
-                  forceAllTransforms: !isDebug,
+                  forceAllTransforms: !isDebug, // for UglifyJS
                 },
                 modules: false,
                 useBuiltIns: false,
@@ -91,19 +100,20 @@ const config = {
             // Flow
             // https://github.com/babel/babel/tree/master/packages/babel-preset-flow
             'flow',
+            // JSX
             // https://github.com/babel/babel/tree/master/packages/babel-preset-react
             ['react', { development: isDebug }],
           ],
           plugins: [
             // Treat React JSX elements as value types and hoist them to the highest scope
             // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-constant-elements
-            ...(isDebug ? ['transform-react-constant-elements'] : []),
+            ...(isDebug ? [] : ['transform-react-constant-elements']),
             // Replaces the React.createElement function with one that is more optimized for production
             // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-inline-elements
-            ...(isDebug ? ['transform-react-inline-elements'] : []),
+            ...(isDebug ? [] : ['transform-react-inline-elements']),
             // Remove unnecessary React propTypes from the production build
             // https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types
-            ...(isDebug ? ['transform-react-remove-prop-types'] : []),
+            ...(isDebug ? [] : ['transform-react-remove-prop-types']),
           ],
         },
       },
@@ -124,7 +134,7 @@ const config = {
             loader: 'css-loader',
             options: {
               sourceMap: isDebug,
-              minimize: !isDebug ? false : minimizeCssOptions,
+              minimize: isDebug ? false : minimizeCssOptions,
             },
           },
 
@@ -141,9 +151,8 @@ const config = {
               localIdentName: isDebug
                 ? '[name]-[local]-[hash:base64:5]'
                 : '[hash:base64:5]',
-              // CSS Nano http://cssnano.co/options/
-              minimize: !isDebug,
-              discardComments: { removeAll: true },
+              // CSS Nano http://cssnano.co/
+              minimize: isDebug ? false : minimizeCssOptions,
             },
           },
 
@@ -273,7 +282,7 @@ const config = {
 
   // Choose a developer tool to enhance debugging 此选项控制是否生成，以及如何生成 Source Map。
   // https://webpack.js.org/configuration/devtool/#devtool
-  devtool: isDebug ? 'inline-cheap-module-source-map' : 'source-map',
+  devtool: isDebug ? 'cheap-module-inline-source-map' : 'source-map',
 };
 
 //
@@ -326,10 +335,10 @@ const clientConfig = {
           // https://github.com/mishoo/UglifyJS2#compressor-options
           new webpack.optimize.UglifyJsPlugin({
             compress: {
-              screw_ie8: true,
               warnings: isVerbose,
               unused: true,
               dead_code: true,
+              screw_ie8: true,
             },
             mangle: {
               screw_ie8: true,
@@ -435,7 +444,7 @@ const serverConfig = {
       return rule;
     }),
   },
-  // Don't follow/bundle these modules, but request them at runtime from the environment
+
   externals: [
     './assets.json',
     nodeExternals({

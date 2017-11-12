@@ -32,7 +32,7 @@ const context = {
     };
   },
   // Universal HTTP client
-  fetch: createFetch(self.fetch, {
+  fetch: createFetch(fetch, {
     baseUrl: window.App.apiUrl,
   }),
 };
@@ -81,6 +81,7 @@ async function onLocationChange(location, action) {
       history.replace(route.redirect);
       return;
     }
+
     const renderReactApp = isInitialRender ? ReactDOM.hydrate : ReactDOM.render;
     appInstance = renderReactApp(
       <App context={context}>{route.component}</App>,

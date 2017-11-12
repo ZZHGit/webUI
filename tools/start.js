@@ -1,3 +1,12 @@
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright ? 2014-present Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
 import path from 'path';
 import express from 'express';
 import browserSync from 'browser-sync';
@@ -20,11 +29,6 @@ const watchOptions = {
   // ignored: /node_modules/,
 };
 
-/**
- * Configure application store with middlewares.
- * @param  {Object} initialState - preloadedState
- * @return {Object} - configured store
- */
 function createCompilationPromise(name, compiler, config) {
   return new Promise((resolve, reject) => {
     let timeStart = new Date();
@@ -43,9 +47,9 @@ function createCompilationPromise(name, compiler, config) {
         reject(new Error('Compilation failed!'));
       } else {
         console.info(
-          `[${format(
-            timeEnd,
-          )}] Finished '${name}' compilation after ${time} ms`,
+          `[${format(timeEnd)}] Finished '${name}' compilation after ${
+            time
+          } ms`,
         );
         resolve(stats);
       }
@@ -152,7 +156,7 @@ async function start() {
   });
 
   function checkForUpdate(fromUpdate) {
-    const hmrPrefix = '[\x1b[35mHMR\x1b[0m] '; // 控制台输出格式
+    const hmrPrefix = '[\x1b[35mHMR\x1b[0m] '; // 控制台输出格�?
     if (!app.hot) {
       throw new Error(`${hmrPrefix}Hot Module Replacement is disabled.`);
     }
