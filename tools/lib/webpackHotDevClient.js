@@ -51,5 +51,6 @@ startReportingRuntimeErrors({
 });
 
 if (module.hot) {
+  // 添加一个处理函数，在当前模块代码被替换时执行。
   module.hot.dispose(stopReportingRuntimeErrors);
 }

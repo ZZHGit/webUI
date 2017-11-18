@@ -5,7 +5,7 @@
   "tasks": [
     {
       "taskName": "build-e",
-      "command": "yarn",
+      "command": "npm run",
       "type": "shell",
       "presentation": {
         "echo": true,

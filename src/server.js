@@ -73,6 +73,27 @@ app.use(passport.initialize());
 if (__DEV__) {
   app.enable('trust proxy');
 }
+
+app.get(
+  '/login/weixin',
+  passport.authenticate('loginByWeixin', {
+    session: false,
+  }),
+);
+app.get(
+  '/login/weixin/return',
+  passport.authenticate('loginByWeixin', {
+    failureRedirect: '/login',
+    session: false,
+  }),
+  (req, res) => {
+    const expiresIn = 60 * 60 * 24 * 180; // 180 days
+    const token = jwt.sign(req.user, config.auth.jwt.secret, { expiresIn });
+    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
+    res.redirect('/');
+  },
+);
+
 app.get(
   '/login/facebook',
   passport.authenticate('facebook', {
@@ -95,7 +116,7 @@ app.get(
 );
 
 //
-// Register API middleware
+// Register API middlewaremiddleware
 // -----------------------------------------------------------------------------
 app.use(
   '/graphql',

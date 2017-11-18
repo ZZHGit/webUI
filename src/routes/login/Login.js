@@ -40,7 +40,7 @@ class Login extends React.Component {
             </a>
           </div>
           <div className={s.formGroup}>
-            <a className={s.google} href="/login/google">
+            <a className={s.google} href="/login/weixin">
               <svg
                 className={s.icon}
                 width="30"
@@ -61,7 +61,7 @@ class Login extends React.Component {
                   }
                 />
               </svg>
-              <span>Log in with Google</span>
+              <span>Log in with 微信</span>
             </a>
           </div>
           <div className={s.formGroup}>

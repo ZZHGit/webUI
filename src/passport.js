@@ -15,12 +15,33 @@
 
 import passport from 'passport';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
+import { Strategy as WeixinStrategy } from 'passport-weixin';
+
 import { User, UserLogin, UserClaim, UserProfile } from './data/models';
 import config from './config';
 
 /**
  * Sign in with Facebook.
  */
+
+// 扫码登录
+// 微信官网文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419316505&token=&lang=zh_CN
+passport.use(
+  'loginByWeixin',
+  new WeixinStrategy(
+    {
+      clientID: config.auth.weixin.clientID,
+      clientSecret: config.auth.weixin.clientSecret,
+      callbackURL: '/login/weixin/return',
+      requireState: false,
+      scope: 'snsapi_login',
+    },
+    (req, accessToken, refreshToken, profile, done) => {
+      done(null, profile);
+    },
+  ),
+);
+
 passport.use(
   new FacebookStrategy(
     {
@@ -61,7 +82,9 @@ passport.use(
                 profile: {
                   displayName: profile.displayName,
                   gender: profile._json.gender,
-                  picture: `https://graph.facebook.com/${profile.id}/picture?type=large`,
+                  picture: `https://graph.facebook.com/${
+                    profile.id
+                  }/picture?type=large`,
                 },
               },
               {
@@ -111,7 +134,9 @@ passport.use(
                   profile: {
                     displayName: profile.displayName,
                     gender: profile._json.gender,
-                    picture: `https://graph.facebook.com/${profile.id}/picture?type=large`,
+                    picture: `https://graph.facebook.com/${
+                      profile.id
+                    }/picture?type=large`,
                   },
                 },
                 {

@@ -1,7 +1,7 @@
 /**
  * React Starter Kit (https://www.reactstarterkit.com/)
  *
- * Copyright ? 2014-present Kriasoft, LLC. All rights reserved.
+ * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -32,10 +32,12 @@ const watchOptions = {
 function createCompilationPromise(name, compiler, config) {
   return new Promise((resolve, reject) => {
     let timeStart = new Date();
+    // event hooks Before creating new compilation
     compiler.plugin('compile', () => {
       timeStart = new Date();
       console.info(`[${format(timeStart)}] Compiling '${name}'...`);
     });
+    // Completion of compile
     compiler.plugin('done', stats => {
       console.info(stats.toString(config.stats));
       const timeEnd = new Date();
@@ -101,6 +103,7 @@ async function start() {
     x => x.loader !== 'null-loader',
   );
   serverConfig.plugins.push(
+    // 通过 HotModuleReplacementPlugin 启用了模块热替换(Hot Module Replacement)
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.NamedModulesPlugin(),
@@ -154,13 +157,14 @@ async function start() {
       .then(() => app.handle(req, res))
       .catch(error => console.error(error));
   });
-
+  // 测试所有加载的模块以进行更新，如果有更新，则应用它们。并打印热替换模块
   function checkForUpdate(fromUpdate) {
-    const hmrPrefix = '[\x1b[35mHMR\x1b[0m] '; // 控制台输出格�?
+    const hmrPrefix = '[\x1b[35mHMR\x1b[0m] '; // 控制台输出格式
     if (!app.hot) {
       throw new Error(`${hmrPrefix}Hot Module Replacement is disabled.`);
     }
     if (app.hot.status() !== 'idle') {
+      // ==idle 进程正在等待调用 check
       return Promise.resolve();
     }
     return app.hot
