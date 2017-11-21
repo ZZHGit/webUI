@@ -1,5 +1,11 @@
 {
   "editor.formatOnPaste": true,
   "editor.minimap.enabled": true,
-  "editor.snippetSuggestions": "top"
+  "editor.snippetSuggestions": "top",
+  "editor.formatOnSave": true,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "flow.useNPMPackagedFlow": true,
+  "javascript.validate.enable": false,
+  "javascript.format.enable": false
 }
