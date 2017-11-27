@@ -21,6 +21,7 @@ module.exports = {
     /* @intl-code-template '${lang}-${COUNTRY}', */
     'en-US',
     'cs-CZ',
+    'zh-CN',
     /* @intl-code-template-end */
   ],
 

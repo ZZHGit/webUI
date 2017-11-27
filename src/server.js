@@ -266,7 +266,7 @@ app.get('*', async (req, res, next) => {
       state: context.store.getState(),
       lang: locale,
     };
-
+    // 发送服务端渲染结果 设置初始状态
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(route.status || 200);
     res.send(`<!doctype html>${html}`);

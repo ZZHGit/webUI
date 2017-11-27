@@ -59,7 +59,7 @@ class App extends React.PureComponent {
   static childContextTypes = ContextType;
 
   getChildContext() {
-    return this.props.context;
+    return this.props.context; // 全局变量
   }
 
   // NOTE: This methods are not needed if you update URL by setLocale action.
