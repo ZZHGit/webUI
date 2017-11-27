@@ -67,6 +67,7 @@
     "@babel/preset-flow": "7.0.0-beta.32",
     "@babel/preset-react": "7.0.0-beta.32",
     "@babel/preset-stage-2": "7.0.0-beta.32",
+    "apollo-client": "^1.7.0",
     "assets-webpack-plugin": "^3.5.1",
     "autoprefixer": "^7.1.6",
     "babel-cli": "7.0.0-beta.3",

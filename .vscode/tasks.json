@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "taskName": "build-e",
+      "label": "build-e",
       "command": "npm run",
       "type": "shell",
       "presentation": {

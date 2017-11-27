@@ -4,8 +4,8 @@
   "editor.snippetSuggestions": "top",
   "editor.formatOnSave": true,
   "prettier.singleQuote": true,
-  "prettier.trailingComma": "all",
-  "flow.useNPMPackagedFlow": true,
-  "javascript.validate.enable": false,
-  "javascript.format.enable": false
+  "prettier.trailingComma": "all"
+  //"flow.useNPMPackagedFlow": true,
+  //"javascript.validate.enable": false
+  //"javascript.format.enable": false
 }

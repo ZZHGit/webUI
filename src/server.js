@@ -172,6 +172,7 @@ app.get('*', async (req, res, next) => {
       user: req.user || null,
     };
 
+    // 创建服务端 store
     const store = configureStore(initialState, {
       cookie: req.headers.cookie,
       apolloClient,
@@ -241,6 +242,8 @@ app.get('*', async (req, res, next) => {
         {route.component}
       </App>
     );
+
+    // 可通过getDataFromTree函数，执行查询后给出一个Promise，完成Apollo客户端实例的初始化
     await getDataFromTree(rootComponent);
     // this is here because of Apollo redux APOLLO_QUERY_STOP action
     await Promise.delay(0);

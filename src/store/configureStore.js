@@ -9,7 +9,7 @@ export default function configureStore(initialState, config) {
   const { apolloClient } = config;
 
   const middleware = [
-    thunk.withExtraArgument(helpers),
+    thunk.withExtraArgument(helpers), // 注入额外参数
     apolloClient.middleware(),
   ];
 
