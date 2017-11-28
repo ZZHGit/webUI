@@ -17,7 +17,7 @@ import { addLocaleData } from 'react-intl';
 // This is so bad: requiring all locale if they are not needed?
 /* @intl-code-template import ${lang} from 'react-intl/locale-data/${lang}'; */
 import en from 'react-intl/locale-data/en';
-import cs from 'react-intl/locale-data/cs';
+import zh from 'react-intl/locale-data/zh';
 /* @intl-code-template-end */
 import App from './components/App';
 import createFetch from './createFetch';
@@ -32,15 +32,13 @@ const apolloClient = createApolloClient();
 
 /* @intl-code-template addLocaleData(${lang}); */
 addLocaleData(en);
-addLocaleData(cs);
+addLocaleData(zh);
 /* @intl-code-template-end */
 
 /* eslint-disable global-require */
 
 // Universal HTTP client
-const fetch = createFetch(self.fetch, {
-  baseUrl: window.App.apiUrl,
-});
+const fetch = createFetch(self.fetch, { baseUrl: window.App.apiUrl }); // eslint-disable-line no-restricted-globals
 
 // Initialize a new Redux store
 // http://redux.js.org/docs/basics/UsageWithReact.html
@@ -205,7 +203,6 @@ if (module.hot) {
       // Force-update the whole tree, including components that refuse to update
       deepForceUpdate(appInstance);
     }
-
     onLocationChange(currentLocation);
   });
 }

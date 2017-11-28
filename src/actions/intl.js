@@ -57,10 +57,12 @@ export function setLocale({ locale }) {
       });
 
       // remember locale for every new request
+      console.info(process.env.BROWSER);
       if (process.env.BROWSER) {
         const maxAge = 3650 * 24 * 3600; // 10 years in seconds
         document.cookie = `lang=${locale};path=/;max-age=${maxAge}`;
         history.push(`?lang=${locale}`);
+        window.RSK_ENTRY();
       }
 
       // return bound intl instance at the end
