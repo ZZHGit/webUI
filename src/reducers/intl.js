@@ -1,18 +1,14 @@
+import { handleActions } from 'redux-actions';
 import {
-  SET_LOCALE_START,
-  SET_LOCALE_SUCCESS,
-  SET_LOCALE_ERROR,
+  // eslint-disable-next-line
+  SET_LOCALE_START, // eslint-disable-next-line
+  SET_LOCALE_SUCCESS, // eslint-disable-next-line
+  SET_LOCALE_ERROR, // eslint-disable-next-line
 } from '../constants';
 
-export default function intl(state = null, action) {
-  if (state === null) {
-    return {
-      initialNow: Date.now(),
-    };
-  }
-
-  switch (action.type) {
-    case SET_LOCALE_START: {
+const intl = handleActions(
+  {
+    SET_LOCALE_START: (state, action) => {
       const locale = state[action.payload.locale]
         ? action.payload.locale
         : state.locale;
@@ -21,29 +17,26 @@ export default function intl(state = null, action) {
         locale,
         newLocale: action.payload.locale,
       };
-    }
+    },
 
-    case SET_LOCALE_SUCCESS: {
-      return {
-        ...state,
-        locale: action.payload.locale,
-        newLocale: null,
-        messages: {
-          ...state.messages,
-          [action.payload.locale]: action.payload.messages,
-        },
-      };
-    }
+    SET_LOCALE_SUCCESS: (state, action) => ({
+      ...state,
+      locale: action.payload.locale,
+      newLocale: null,
+      messages: {
+        ...state.messages,
+        [action.payload.locale]: action.payload.messages,
+      },
+    }),
 
-    case SET_LOCALE_ERROR: {
-      return {
-        ...state,
-        newLocale: null,
-      };
-    }
+    SET_LOCALE_ERROR: state => ({
+      ...state,
+      newLocale: null,
+    }),
+  },
+  {
+    initialNow: Date.now(),
+  },
+);
 
-    default: {
-      return state;
-    }
-  }
-}
+export default intl;

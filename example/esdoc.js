@@ -181,6 +181,10 @@ class Person extends Animal {
   }
 }
 
+function testobj({ A }) {
+  return { a: { ...A } };
+}
+
 if (require.main === module) {
   // 创建 person 对象
   const person = new Person({
@@ -250,6 +254,15 @@ if (require.main === module) {
   }, 5000);
   // eslint-disable-next-line no-console
   console.log('[\x1b[35mHMR\x1b[0m] text');
+
+  const A = { a: 1 };
+  const b = testobj({ A });
+  console.info(b);
+  A.a = 2;
+  console.info(A);
+  console.info(A.a);
+  console.info(b);
+  console.info(b.a.a);
 }
 
 /**

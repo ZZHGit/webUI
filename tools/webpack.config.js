@@ -328,7 +328,7 @@ const clientConfig = {
   // The point or points to enter the application. At this point the application starts executing.
   // If an array is passed all items will be executed.
   entry: {
-    client: ['@babel/polyfill', './src/client.js'],
+    client: ['@babel/polyfill', './src/clientLoader.js'],
   },
 
   plugins: [

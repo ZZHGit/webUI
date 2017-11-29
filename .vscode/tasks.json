@@ -4,8 +4,8 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "build-e",
-      "command": "npm run",
+      "label": "build-doctest",
+      "command": "npm run build-doctest",
       "type": "shell",
       "presentation": {
         "echo": true,
@@ -13,7 +13,6 @@
         "focus": false,
         "panel": "shared"
       },
-      "args": ["build-e"],
       "group": {
         "kind": "build",
         "isDefault": true

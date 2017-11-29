@@ -50,6 +50,7 @@
     "react-intl": "^2.3.0",
     "react-redux": "^5.0.5",
     "redux": "^3.7.1",
+    "redux-actions": "^2.2.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.22.6",
@@ -135,6 +136,7 @@
     "react-test-renderer": "^16.1.1",
     "rimraf": "^2.6.2",
     "serve": "^6.1.0",
+    "sinon": "^3.2.0",
     "stylelint": "^8.2.0",
     "stylelint-config-standard": "^17.0.0",
     "stylelint-order": "^0.7.0",
@@ -176,7 +178,7 @@
     "serve": "babel-node tools/run runServer",
     "start": "babel-node tools/run start",
     "doctest": "babel-node example/esdoc",
-    "build-e":
+    "build-doctest":
       "babel example/esdoc.js --out-file example/build/esdoc.js -s inline"
   }
 }

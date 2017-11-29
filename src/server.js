@@ -54,16 +54,20 @@ global.navigator.userAgent = global.navigator.userAgent || 'all';
 // -----------------------------------------------------------------------------
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(cookieParser());
+
+// Your language will be accessed with req.language.
 app.use(
   requestLanguage({
     languages: config.locales,
-    queryName: 'lang',
+    queryName: 'lang', // ?lang=zh-CN will set the language to 'zh-CN'
     cookie: {
       name: 'lang',
       options: {
         path: '/',
         maxAge: 3650 * 24 * 3600 * 1000, // 10 years in miliseconds
       },
+      // If you visit with your browser the URL path /lang/en-US.
+      // It will change your language cookie value to en-US.
       url: '/lang/{language}',
     },
   }),

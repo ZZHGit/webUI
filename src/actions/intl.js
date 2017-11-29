@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-
+import { createAction } from 'redux-actions';
 import { IntlProvider } from 'react-intl';
 
 import {
@@ -29,13 +29,7 @@ export function getIntl() {
 
 export function setLocale({ locale }) {
   return async (dispatch, getState, { client, history }) => {
-    dispatch({
-      type: SET_LOCALE_START,
-      payload: {
-        locale,
-      },
-    });
-
+    dispatch(createAction(SET_LOCALE_START)(locale));
     try {
       // WARNING !!
       // do not use client.networkInterface except you want skip Apollo store
@@ -48,16 +42,9 @@ export function setLocale({ locale }) {
         msgs[msg.id] = msg.message; // eslint-disable-line no-param-reassign
         return msgs;
       }, {});
-      dispatch({
-        type: SET_LOCALE_SUCCESS,
-        payload: {
-          locale,
-          messages,
-        },
-      });
+      dispatch(createAction(SET_LOCALE_SUCCESS)({ locale, messages }));
 
       // remember locale for every new request
-      console.info(process.env.BROWSER);
       if (process.env.BROWSER) {
         const maxAge = 3650 * 24 * 3600; // 10 years in seconds
         document.cookie = `lang=${locale};path=/;max-age=${maxAge}`;
@@ -68,13 +55,7 @@ export function setLocale({ locale }) {
       // return bound intl instance at the end
       return getIntlFromState(getState());
     } catch (error) {
-      dispatch({
-        type: SET_LOCALE_ERROR,
-        payload: {
-          locale,
-          error,
-        },
-      });
+      dispatch(createAction(SET_LOCALE_ERROR)({ locale, error }));
       return null;
     }
   };
