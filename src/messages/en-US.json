@@ -1,5 +1,12 @@
 [
   {
+    "id": "login.title",
+    "defaultMessage": "Log In",
+    "message": "Log In",
+    "description": "Log in page title",
+    "files": ["src/routes/login/index.js"]
+  },
+  {
     "id": "header.banner.desc",
     "description": "Description in header",
     "defaultMessage": "Complex web apps made easy",
@@ -54,12 +61,5 @@
     "defaultMessage": "Sign up",
     "message": "",
     "files": ["src/components/Navigation/Navigation.js"]
-  },
-  {
-    "id": "login.title",
-    "defaultMessage": "Log In",
-    "message": "Log In",
-    "description": "Log in page title",
-    "files": ["src/routes/login/index.js"]
   }
 ]

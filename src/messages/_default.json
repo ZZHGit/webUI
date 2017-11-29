@@ -57,9 +57,9 @@
   },
   {
     "id": "login.title",
+    "description": "Log in page title",
     "defaultMessage": "Log In",
     "message": "",
-    "description": "Log in page title",
     "files": ["src/routes/login/index.js"]
   }
 ]

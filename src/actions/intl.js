@@ -18,7 +18,7 @@ function getIntlFromState(state) {
     initialNow,
     locale,
     messages: localeMessages,
-    defaultLocale: 'en-US',
+    defaultLocale: 'zh-CN',
   });
   return provider.getChildContext().intl;
 }
@@ -28,6 +28,7 @@ export function getIntl() {
 }
 
 export function setLocale({ locale }) {
+  // 使用额外注入的参数
   return async (dispatch, getState, { client, history }) => {
     dispatch({
       type: SET_LOCALE_START,
@@ -42,7 +43,9 @@ export function setLocale({ locale }) {
       // use client.query if you want benefit from Apollo caching mechanisms
       const { data } = await client.networkInterface.query({
         query: queryIntl,
-        variables: { locale },
+        variables: {
+          locale,
+        },
       });
       const messages = data.intl.reduce((msgs, msg) => {
         msgs[msg.id] = msg.message; // eslint-disable-line no-param-reassign
@@ -57,7 +60,6 @@ export function setLocale({ locale }) {
       });
 
       // remember locale for every new request
-      console.info(process.env.BROWSER);
       if (process.env.BROWSER) {
         const maxAge = 3650 * 24 * 3600; // 10 years in seconds
         document.cookie = `lang=${locale};path=/;max-age=${maxAge}`;
