@@ -67,6 +67,7 @@ const Greeting = ({ name, unreadCount, lastLoginTime }) => (
 Greeting.propTypes = {
   name: PropTypes.string.isRequired,
   unreadCount: PropTypes.number.isRequired,
+  // eslint-disable-next-line
   lastLoginTime: PropTypes.any.isRequired,
 };
 

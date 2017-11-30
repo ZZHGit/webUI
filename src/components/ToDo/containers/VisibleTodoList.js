@@ -1,36 +1,25 @@
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 import { toggleTodo } from '../../../actions/todo';
 import TodoList from '../TodoList';
+import { makeGetVisibleTodos } from '../../../selectors';
 
-const getVisibilityFilter = state => state.visibilityFilter;
-const getTodos = state => state.todos;
-
-const makeGetVisibleTodos = () => {
-  return createSelector(
-    [getVisibilityFilter, getTodos],
-    (visibilityFilter, todos) => {
-      switch (visibilityFilter) {
-        case 'SHOW_COMPLETED':
-          return todos.filter(todo => todo.completed);
-        case 'SHOW_ACTIVE':
-          return todos.filter(todo => !todo.completed);
-        default:
-          return todos;
-      }
-    },
-  );
-};
-
+// mapStateToProps() can also return a function.
+// In this case, that function will be used as mapStateToProps() for a particular component instance.
 const makeMapStateToProps = () => {
   const getVisibleTodos = makeGetVisibleTodos();
-  const mapStateToProps = state => {
-    return {
-      todos: getVisibleTodos(state),
-    };
-  };
+  const mapStateToProps = state => ({
+    todos: getVisibleTodos(state),
+  });
   return mapStateToProps;
 };
+/*
+const mapStateToProps = state => {
+  console.info(state);
+  return {
+    todos: getVisibleTodos(state),
+  };
+};
+*/
 
 const mapDispatchToProps = {
   onTodoClick: toggleTodo,

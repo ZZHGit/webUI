@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
 import { connect } from 'react-redux';
-
+// eslint-disable-next-line
 const UndoRedo = ({ canUndo, canRedo, onUndo, onRedo }) => (
   <p>
     <button onClick={onUndo} disabled={!canUndo}>

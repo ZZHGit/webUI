@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addTodo } from '../../../actions/todo';
-
+// eslint-disable-next-line
 const AddTodo = ({ dispatch }) => {
   let input;
 
