@@ -10,56 +10,56 @@
     "id": "header.banner.desc",
     "description": "Description in header",
     "defaultMessage": "Complex web apps made easy",
-    "message": "",
+    "message": "Complex web apps made easy",
     "files": ["src/components/Header/Header.js"]
   },
   {
     "id": "header.banner.title",
     "description": "Title in page header",
-    "defaultMessage": "React",
-    "message": "",
+    "defaultMessage": "dawnon",
+    "message": "dawnon",
     "files": ["src/components/Header/Header.js"]
   },
   {
     "id": "header.brand",
     "description": "Brand name displayed in header",
-    "defaultMessage": "Your Company Brand",
-    "message": "",
+    "defaultMessage": "dawnon",
+    "message": "dawnon",
     "files": ["src/components/Header/Header.js"]
   },
   {
     "id": "navigation.about",
     "description": "About link in header",
     "defaultMessage": "About",
-    "message": "",
+    "message": "About",
     "files": ["src/components/Navigation/Navigation.js"]
   },
   {
     "id": "navigation.contact",
     "description": "Contact link in header",
     "defaultMessage": "Contact",
-    "message": "",
+    "message": "Contact",
     "files": ["src/components/Navigation/Navigation.js"]
   },
   {
     "id": "navigation.login",
     "description": "Log in link in header",
     "defaultMessage": "Log in",
-    "message": "",
+    "message": "Log in",
     "files": ["src/components/Navigation/Navigation.js"]
   },
   {
     "id": "navigation.separator.or",
     "description": "Last separator in list, lowercase \"or\"",
     "defaultMessage": "or",
-    "message": "",
+    "message": "or",
     "files": ["src/components/Navigation/Navigation.js"]
   },
   {
     "id": "navigation.signup",
     "description": "Sign up link in header",
     "defaultMessage": "Sign up",
-    "message": "",
+    "message": "Sign up",
     "files": ["src/components/Navigation/Navigation.js"]
   }
 ]

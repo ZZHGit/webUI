@@ -9,14 +9,14 @@
   {
     "id": "header.banner.title",
     "description": "Title in page header",
-    "defaultMessage": "React",
+    "defaultMessage": "dawnon",
     "message": "",
     "files": ["src/components/Header/Header.js"]
   },
   {
     "id": "header.brand",
     "description": "Brand name displayed in header",
-    "defaultMessage": "Your Company Brand",
+    "defaultMessage": "dawnon",
     "message": "",
     "files": ["src/components/Header/Header.js"]
   },

@@ -41,10 +41,12 @@ export function setLocale({ locale }) {
           locale,
         },
       });
+
       const messages = data.intl.reduce((msgs, msg) => {
         msgs[msg.id] = msg.message; // eslint-disable-line no-param-reassign
         return msgs;
       }, {});
+
       dispatch(createAction(SET_LOCALE_SUCCESS)({ locale, messages }));
 
       // remember locale for every new request

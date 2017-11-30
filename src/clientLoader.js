@@ -12,7 +12,7 @@ function run() {
     document.addEventListener('DOMContentLoaded', main, false);
   }
 }
-console.info('1111111111111111111');
+
 if (!global.Intl) {
   // You can show loading banner here
 

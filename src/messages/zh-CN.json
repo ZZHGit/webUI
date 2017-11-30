@@ -1,28 +1,28 @@
 [
   {
     "id": "header.banner.desc",
-    "defaultMessage": "Complex web apps made easy",
-    "message": "网络应用开发框架",
+    "defaultMessage": "dawnon",
+    "message": "领先实战支柱型企业 HR 学习发展供应商",
     "description": "Description in header",
     "files": ["src/components/Header/Header.js"]
   },
   {
     "id": "header.banner.title",
-    "defaultMessage": "React",
-    "message": "React",
+    "defaultMessage": "dawnon",
+    "message": "道昂咨询",
     "description": "Title in page header",
     "files": ["src/components/Header/Header.js"]
   },
   {
     "id": "header.brand",
-    "defaultMessage": "Your Company Brand",
-    "message": "商标",
+    "defaultMessage": "dawnon",
+    "message": "道昂咨询",
     "description": "Brand name displayed in header",
     "files": ["src/components/Header/Header.js"]
   },
   {
     "id": "navigation.about",
-    "defaultMessage": "About",
+    "defaultMessage": "about",
     "message": "关于",
     "description": "About link in header",
     "files": ["src/components/Navigation/Navigation.js"]

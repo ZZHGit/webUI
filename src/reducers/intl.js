@@ -35,6 +35,8 @@ const intl = handleActions(
     }),
   },
   {
+    // This stabilizes the "current time" for the initial
+    // rendering of the app, which affects relative time formatting.
     initialNow: Date.now(),
   },
 );
