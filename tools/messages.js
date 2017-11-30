@@ -11,7 +11,8 @@ import chokidar from 'chokidar';
 import Promise from 'bluebird';
 import { transform } from '@babel/core';
 import { readFile, writeFile, glob } from './lib/fs';
-import pkg from '../package.json';
+// eslint-disable-next-line
+import babelrc from '../.babelrc.js';
 import { locales } from '../src/config';
 
 const GLOB_PATTERN = 'src/**/*.{js,jsx}';
@@ -120,7 +121,7 @@ async function extractMessages() {
       const code = await readFile(fileName);
       const posixName = posixPath(fileName);
       const result = transform(code, {
-        presets: pkg.babel.presets,
+        presets: babelrc.presets,
         plugins: ['react-intl'],
       }).metadata['react-intl'];
       if (result.messages && result.messages.length) {

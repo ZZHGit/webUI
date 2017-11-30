@@ -81,9 +81,9 @@ if (window.history && 'scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual';
 }
 
-// Re-render the app when window.location changes
+// Re-render the app when window.location changes 当前页面的地址 (URL)改变时重新渲染
 async function onLocationChange(location, action) {
-  // Remember the latest scroll position for the previous location
+  // Remember the latest scroll position for the previous location 记录改变上次页面位置
   scrollPositionsHistory[currentLocation.key] = {
     scrollX: window.pageXOffset,
     scrollY: window.pageYOffset,
@@ -97,6 +97,8 @@ async function onLocationChange(location, action) {
   context.intl = store.dispatch(getIntl());
 
   const isInitialRender = !action;
+  console.info(action);
+  console.info(isInitialRender);
   try {
     // Traverses the list of routes in the order they are defined until
     // it finds the first route that matches provided URL path string
@@ -118,6 +120,8 @@ async function onLocationChange(location, action) {
       return;
     }
 
+    // ReactDOM.hydrate is used to hydrate a container whose HTML contents were rendered by ReactDOMServer.
+    // React will attempt to attach event listeners to the existing markup.
     const renderReactApp = isInitialRender ? ReactDOM.hydrate : ReactDOM.render;
     appInstance = renderReactApp(
       <App context={context}>{route.component}</App>,
