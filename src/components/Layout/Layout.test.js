@@ -9,17 +9,20 @@
 
 /* eslint-env jest */
 /* eslint-disable padded-blocks, no-unused-expressions */
-
+import '@babel/polyfill';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+// import configureStore from 'redux-mock-store';
 import { IntlProvider } from 'react-intl';
+import configureStore from '../../store/configureStore';
+// import thunk from 'redux-thunk';
 import App from '../App';
 import Layout from './Layout';
+import createApolloClient from '../../core/createApolloClient';
+import schema from '../../data/schema';
 
-const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
+// const middlewares = [thunk];
+// const mockStore = configureStore(middlewares);
 const initialState = {
   runtime: {
     availableLocales: ['en-US'],
@@ -28,14 +31,23 @@ const initialState = {
     locale: 'en-US',
   },
 };
+const apolloClient = createApolloClient({
+  schema,
+  rootValue: {},
+});
 
 describe('Layout', () => {
   test('renders children correctly', () => {
-    const store = mockStore(initialState);
+    const store = configureStore(initialState, {
+      apolloClient,
+      fetch,
+      // I should not use `history` on server.. but how I do redirection? follow universal-router
+      history: null,
+    });
     const wrapper = renderer
       .create(
         <IntlProvider>
-          <App context={{ insertCss: () => {}, store }}>
+          <App context={{ insertCss: () => {}, store, client: apolloClient }}>
             <Layout>
               <div className="child" />
             </Layout>

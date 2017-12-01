@@ -99,9 +99,13 @@ exports[`Layout renders children correctly 1`] = `
             React
           </span>
         </h1>
-        <p>
-          Complex web apps made easy
-        </p>
+        <div
+          className="bannerDesc"
+        >
+          <p>
+            Complex web apps made easy
+          </p>
+        </div>
       </div>
     </div>
   </div>
