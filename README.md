@@ -1,5 +1,7 @@
 # MyWeb
 
+[![Circle CI](https://circleci.com/gh/ZZHGit/webUI.svg?style=svg)](https://circleci.com/gh/ZZHGit/webUI)
+
 ![screen.gif](https://github.com/screen.gif)
 
 ### Demo: [https://myweb.com](https://myweb.com)
