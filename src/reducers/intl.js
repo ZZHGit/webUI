@@ -5,7 +5,7 @@ import {
   SET_LOCALE_SUCCESS, // eslint-disable-next-line
   SET_LOCALE_ERROR, // eslint-disable-next-line
 } from '../constants';
-
+// https://redux-actions.js.org/docs/api/index.html
 const intl = handleActions(
   {
     SET_LOCALE_START: (state, action) => {
