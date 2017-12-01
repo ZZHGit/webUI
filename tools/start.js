@@ -1,10 +1,19 @@
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
 import path from 'path';
 import express from 'express';
 import browserSync from 'browser-sync';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import createLaunchEditorMiddleware from 'react-error-overlay/middleware';
+import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
 import webpackConfig from './webpack.config';
 import run, { format } from './run';
 import clean from './clean';
@@ -20,18 +29,15 @@ const watchOptions = {
   // ignored: /node_modules/,
 };
 
-/**
- * Configure application store with middlewares.
- * @param  {Object} initialState - preloadedState
- * @return {Object} - configured store
- */
 function createCompilationPromise(name, compiler, config) {
   return new Promise((resolve, reject) => {
     let timeStart = new Date();
+    // event hooks Before creating new compilation
     compiler.plugin('compile', () => {
       timeStart = new Date();
       console.info(`[${format(timeStart)}] Compiling '${name}'...`);
     });
+    // Completion of compile
     compiler.plugin('done', stats => {
       console.info(stats.toString(config.stats));
       const timeEnd = new Date();
@@ -43,9 +49,9 @@ function createCompilationPromise(name, compiler, config) {
         reject(new Error('Compilation failed!'));
       } else {
         console.info(
-          `[${format(
-            timeEnd,
-          )}] Finished '${name}' compilation after ${time} ms`,
+          `[${format(timeEnd)}] Finished '${name}' compilation after ${
+            time
+          } ms`,
         );
         resolve(stats);
       }
@@ -62,16 +68,12 @@ let server;
 async function start() {
   if (server) return server;
   server = express();
-  server.use(createLaunchEditorMiddleware()); // `react-error-overlay` is an overlay which displays when there is a runtime error.
+  server.use(errorOverlayMiddleware());
   server.use(express.static(path.resolve(__dirname, '../public')));
 
   // Configure client-side hot module replacement
   const clientConfig = webpackConfig.find(config => config.name === 'client');
-  clientConfig.entry.client = [
-    'react-error-overlay',
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client?name=client&reload=true',
-  ]
+  clientConfig.entry.client = ['./tools/lib/webpackHotDevClient']
     .concat(clientConfig.entry.client) // client: ['babel-polyfill', './src/client.js'],
     .sort((a, b) => b.includes('polyfill') - a.includes('polyfill'));
   clientConfig.output.filename = clientConfig.output.filename.replace(
@@ -85,10 +87,7 @@ async function start() {
   clientConfig.module.rules = clientConfig.module.rules.filter(
     x => x.loader !== 'null-loader',
   );
-  const { options } = clientConfig.module.rules.find(
-    x => x.loader === 'babel-loader',
-  );
-  options.plugins = ['react-hot-loader/babel'].concat(options.plugins || []);
+
   clientConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -104,6 +103,7 @@ async function start() {
     x => x.loader !== 'null-loader',
   );
   serverConfig.plugins.push(
+    // 通过 HotModuleReplacementPlugin 启用了模块热替换(Hot Module Replacement)
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.NamedModulesPlugin(),
@@ -157,13 +157,14 @@ async function start() {
       .then(() => app.handle(req, res))
       .catch(error => console.error(error));
   });
-
+  // 测试所有加载的模块以进行更新，如果有更新，则应用它们。并打印热替换模块
   function checkForUpdate(fromUpdate) {
     const hmrPrefix = '[\x1b[35mHMR\x1b[0m] '; // 控制台输出格式
     if (!app.hot) {
       throw new Error(`${hmrPrefix}Hot Module Replacement is disabled.`);
     }
     if (app.hot.status() !== 'idle') {
+      // ==idle 进程正在等待调用 check
       return Promise.resolve();
     }
     return app.hot
@@ -212,6 +213,8 @@ async function start() {
   // Wait until both client-side and server-side bundles are ready
   await clientPromise;
   await serverPromise;
+
+  process.env.MESSAGES_DIR = path.join(__dirname, '../src/messages/');
 
   const timeStart = new Date();
   console.info(`[${format(timeStart)}] Launching server...`);

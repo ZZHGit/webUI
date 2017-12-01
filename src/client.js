@@ -13,13 +13,40 @@ import ReactDOM from 'react-dom';
 import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
 import { createPath } from 'history/PathUtils';
+import { addLocaleData } from 'react-intl';
+// This is so bad: requiring all locale if they are not needed?
+/* @intl-code-template import ${lang} from 'react-intl/locale-data/${lang}'; */
+import en from 'react-intl/locale-data/en';
+import zh from 'react-intl/locale-data/zh';
+/* @intl-code-template-end */
 import App from './components/App';
 import createFetch from './createFetch';
+import configureStore from './store/configureStore';
 import history from './history';
 import { updateMeta } from './DOMUtils';
+import createApolloClient from './core/createApolloClient';
 import router from './router';
+import { getIntl } from './actions/intl';
+
+const apolloClient = createApolloClient();
+
+/* @intl-code-template addLocaleData(${lang}); */
+addLocaleData(en);
+addLocaleData(zh);
+/* @intl-code-template-end */
 
 /* eslint-disable global-require */
+
+// Universal HTTP client
+const fetch = createFetch(self.fetch, { baseUrl: window.App.apiUrl }); // eslint-disable-line no-restricted-globals
+
+// Initialize a new Redux store
+// http://redux.js.org/docs/basics/UsageWithReact.html
+const store = configureStore(window.App.state, {
+  apolloClient,
+  fetch,
+  history,
+});
 
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
@@ -33,11 +60,19 @@ const context = {
       removeCss.forEach(f => f());
     };
   },
+  // For react-apollo
+  client: apolloClient,
+  store,
+  storeSubscription: null,
   // Universal HTTP client
-  fetch: createFetch(self.fetch, {
-    baseUrl: window.App.apiUrl,
-  }),
+  fetch,
+  // intl instance as it can be get with injectIntl
+  intl: store.dispatch(getIntl()),
 };
+
+const container = document.getElementById('app');
+let currentLocation = history.location;
+let appInstance;
 
 // Switch off the native scroll restoration behavior and handle it manually
 // https://developers.google.com/web/updates/2015/09/history-api-scroll-restoration
@@ -46,56 +81,9 @@ if (window.history && 'scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual';
 }
 
-let onRenderComplete = function initialRenderComplete() {
-  const elem = document.getElementById('css');
-  if (elem) elem.parentNode.removeChild(elem);
-  onRenderComplete = function renderComplete(route, location) {
-    document.title = route.title;
-
-    updateMeta('description', route.description);
-    // Update necessary tags in <head> at runtime here, ie:
-    // updateMeta('keywords', route.keywords);
-    // updateCustomMeta('og:url', route.canonicalUrl);
-    // updateCustomMeta('og:image', route.imageUrl);
-    // updateLink('canonical', route.canonicalUrl);
-    // etc.
-
-    let scrollX = 0;
-    let scrollY = 0;
-    const pos = scrollPositionsHistory[location.key];
-    if (pos) {
-      scrollX = pos.scrollX;
-      scrollY = pos.scrollY;
-    } else {
-      const targetHash = location.hash.substr(1);
-      if (targetHash) {
-        const target = document.getElementById(targetHash);
-        if (target) {
-          scrollY = window.pageYOffset + target.getBoundingClientRect().top;
-        }
-      }
-    }
-
-    // Restore the scroll position if it was saved into the state
-    // or scroll to the given #hash anchor
-    // or scroll to top of the page
-    window.scrollTo(scrollX, scrollY);
-
-    // Google Analytics tracking. Don't send 'pageview' event after
-    // the initial rendering, as it was already sent
-    if (window.ga) {
-      window.ga('send', 'pageview', createPath(location));
-    }
-  };
-};
-
-const container = document.getElementById('app');
-let appInstance;
-let currentLocation = history.location;
-
-// Re-render the app when window.location changes
+// Re-render the app when window.location changes 当前页面的地址 (URL)改变时重新渲染
 async function onLocationChange(location, action) {
-  // Remember the latest scroll position for the previous location
+  // Remember the latest scroll position for the previous location 记录改变上次页面位置
   scrollPositionsHistory[currentLocation.key] = {
     scrollX: window.pageXOffset,
     scrollY: window.pageYOffset,
@@ -106,14 +94,19 @@ async function onLocationChange(location, action) {
   }
   currentLocation = location;
 
+  context.intl = store.dispatch(getIntl());
+
+  const isInitialRender = !action;
+
   try {
     // Traverses the list of routes in the order they are defined until
     // it finds the first route that matches provided URL path string
     // and whose action method returns anything other than `undefined`.
     const route = await router.resolve({
       ...context,
-      path: location.pathname,
+      pathname: location.pathname,
       query: queryString.parse(location.search),
+      locale: store.getState().intl.locale,
     });
 
     // Prevent multiple page renders during the routing process
@@ -126,12 +119,56 @@ async function onLocationChange(location, action) {
       return;
     }
 
-    appInstance = ReactDOM.render(
-      <App context={context}>
-        {route.component}
-      </App>,
+    // ReactDOM.hydrate is used to hydrate a container whose HTML contents were rendered by ReactDOMServer.
+    // React will attempt to attach event listeners to the existing markup.
+    const renderReactApp = isInitialRender ? ReactDOM.hydrate : ReactDOM.render;
+    appInstance = renderReactApp(
+      <App context={context}>{route.component}</App>,
       container,
-      () => onRenderComplete(route, location),
+      () => {
+        if (isInitialRender) {
+          const elem = document.getElementById('css');
+          if (elem) elem.parentNode.removeChild(elem);
+          return;
+        }
+
+        document.title = route.title;
+
+        updateMeta('description', route.description);
+        // Update necessary tags in <head> at runtime here, ie:
+        // updateMeta('keywords', route.keywords);
+        // updateCustomMeta('og:url', route.canonicalUrl);
+        // updateCustomMeta('og:image', route.imageUrl);
+        // updateLink('canonical', route.canonicalUrl);
+        // etc.
+
+        let scrollX = 0;
+        let scrollY = 0;
+        const pos = scrollPositionsHistory[location.key];
+        if (pos) {
+          scrollX = pos.scrollX;
+          scrollY = pos.scrollY;
+        } else {
+          const targetHash = location.hash.substr(1);
+          if (targetHash) {
+            const target = document.getElementById(targetHash);
+            if (target) {
+              scrollY = window.pageYOffset + target.getBoundingClientRect().top;
+            }
+          }
+        }
+
+        // Restore the scroll position if it was saved into the state
+        // or scroll to the given #hash anchor
+        // or scroll to top of the page
+        window.scrollTo(scrollX, scrollY);
+
+        // Google Analytics tracking. Don't send 'pageview' event after
+        // the initial rendering, as it was already sent
+        if (window.ga) {
+          window.ga('send', 'pageview', createPath(location));
+        }
+      },
     );
   } catch (error) {
     if (__DEV__) {
@@ -141,25 +178,34 @@ async function onLocationChange(location, action) {
     console.error(error);
 
     // Do a full page reload if error occurs during client-side navigation
-    if (action && currentLocation.key === location.key) {
+    if (!isInitialRender && currentLocation.key === location.key) {
       window.location.reload();
     }
   }
 }
 
-// Handle client-side navigation by using HTML5 History API
-// For more information visit https://github.com/mjackson/history#readme
-history.listen(onLocationChange);
-onLocationChange(currentLocation);
+let isHistoryObserved = false;
+export default function main() {
+  // Handle client-side navigation by using HTML5 History API
+  // For more information visit https://github.com/mjackson/history#readme
+  currentLocation = history.location;
+  if (!isHistoryObserved) {
+    isHistoryObserved = true;
+    history.listen(onLocationChange);
+  }
+  onLocationChange(currentLocation);
+}
+
+// globally accesible entry point
+window.RSK_ENTRY = main;
 
 // Enable Hot Module Replacement (HMR)
 if (module.hot) {
   module.hot.accept('./router', () => {
-    if (appInstance) {
+    if (appInstance && appInstance.updater.isMounted(appInstance)) {
       // Force-update the whole tree, including components that refuse to update
       deepForceUpdate(appInstance);
     }
-
     onLocationChange(currentLocation);
   });
 }

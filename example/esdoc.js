@@ -38,7 +38,7 @@ class Animal {
    * @param {number} [age=0] 年龄
    * @param {string[]} [abilities=[]] 拥有的能力
    */
-  constructor({ name = '', age = 0, abilities = [] }) {
+  constructor(name = '', age = 0, abilities = []) {
     /**
      * 名字
      * @type {string}
@@ -114,7 +114,11 @@ class Person extends Animal {
    * 财产
    * @type {number}
    */
-  _money = 100;
+  constructor() {
+    super();
+    // eslint-disable-next-line no-underscore-dangle
+    this._money = 100;
+  }
 
   /**
    * 吃饭方法（重写了父类的 eat 方法）
@@ -177,6 +181,10 @@ class Person extends Animal {
   }
 }
 
+function testobj({ A }) {
+  return { a: { ...A } };
+}
+
 if (require.main === module) {
   // 创建 person 对象
   const person = new Person({
@@ -221,14 +229,19 @@ if (require.main === module) {
 
   // let appPromiseResolve;
   // appPromise = new Promise(resolve => (appPromiseResolve = resolve));
-  // eslint-disable-next-line no-unused-vars
-  const appPromise = new Promise((resolve, reject) =>
-    // setTimeout(function () {
-    //  resolve("Success!"); // Yay! Everything went well!
-    // }, 2500);
-    resolve('yes'),
+  const appPromise = new Promise(
+    // eslint-disable-next-line no-unused-vars
+    (resolve, reject) => {
+      setTimeout(() => {
+        resolve('Success!'); // Yay! Everything went well!
+      }, 2500);
+    },
+    // resolve('yes'),
   );
-
+  Promise.resolve().then(successMessage => {
+    // eslint-disable-next-line no-console
+    console.log(`222${successMessage}`);
+  });
   appPromise.then(successMessage => {
     // eslint-disable-next-line no-console
     console.log(`111${successMessage}`);
@@ -241,6 +254,15 @@ if (require.main === module) {
   }, 5000);
   // eslint-disable-next-line no-console
   console.log('[\x1b[35mHMR\x1b[0m] text');
+
+  const A = { a: 1 };
+  const b = testobj({ A });
+  console.info(b);
+  A.a = 2;
+  console.info(A);
+  console.info(A.a);
+  console.info(b);
+  console.info(b.a.a);
 }
 
 /**

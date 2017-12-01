@@ -8,7 +8,7 @@
       "program": "${workspaceRoot}/example/esdoc.js",
       "sourceMaps": true,
       "outFiles": ["${workspaceRoot}/example/build/esdoc.js"],
-      "preLaunchTask": "build-e"
+      "preLaunchTask": "build-doctest"
     },
     {
       "name": "Chrome",

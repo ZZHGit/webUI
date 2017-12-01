@@ -16,6 +16,14 @@ if (process.env.BROWSER) {
 }
 
 module.exports = {
+  // default locale is the first one
+  locales: [
+    /* @intl-code-template '${lang}-${COUNTRY}', */
+    'zh-CN',
+    'en-US',
+    /* @intl-code-template-end */
+  ],
+
   // Node.js app
   port: process.env.PORT || 3000,
 
@@ -49,20 +57,15 @@ module.exports = {
         process.env.FACEBOOK_APP_SECRET || 'a970ae3240ab4b9b8aae0f9f0661c6fc',
     },
 
-    // https://cloud.google.com/console/project
-    google: {
-      id:
-        process.env.GOOGLE_CLIENT_ID ||
-        '251410730550-ahcg0ou5mgfhl8hlui1urru7jn5s12km.apps.googleusercontent.com',
-      secret: process.env.GOOGLE_CLIENT_SECRET || 'Y8yR9yZAhm9jQ8FKAL8QIEcd',
-    },
-
-    // https://apps.twitter.com/
-    twitter: {
-      key: process.env.TWITTER_CONSUMER_KEY || 'Ie20AZvLJI2lQD5Dsgxgjauns',
-      secret:
-        process.env.TWITTER_CONSUMER_SECRET ||
-        'KTZ6cxoKnEakQCeSpZlaUCJWGAlTEBJj0y2EMkUBujA7zWSvaQ',
+    weixin: {
+      clientID: 'replace by ur weapp_appid',
+      clientSecret: 'replace by ur weapp_secret',
+      requireState: false,
+      authorizationURL: 'https://api.weixin.qq.com/sns/jscode2session',
+      session: false,
+      scope: 'weapp_login',
+      successRedirect: '/auth/account',
+      failureFlash: true,
     },
   },
 };
