@@ -1,0 +1,15 @@
+.taskstats {
+  overflow: hidden;
+  height: 84px;
+}
+
+.taskstatsdl {
+  display: block;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.taskstatsdt {
+  float: left;
+  margin: 0 5px 0 0;
+}

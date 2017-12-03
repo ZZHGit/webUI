@@ -1,0 +1,26 @@
+.componenttodoitem {
+  min-height: 84px;
+  border-bottom: 1px solid #ccc;
+}
+
+.name {
+  float: left;
+  padding: 20px;
+  display: block;
+}
+
+.togglestatus {
+  float: right;
+  width: 84px;
+  height: 84px;
+  cursor: pointer;
+  background: #f44336;
+}
+
+.statusdone {
+  float: right;
+  width: 84px;
+  height: 84px;
+  cursor: pointer;
+  background: #4caf50;
+}

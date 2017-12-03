@@ -16,11 +16,12 @@ import {
   FormattedDate,
   FormattedTime,
 } from 'react-intl';
-import { Map } from 'immutable';
+import Immutable, { Map } from 'immutable';
 import { normalize, schema } from 'normalizr';
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Cursor from 'immutable/contrib/cursor';
 import s from './NotFound.css';
 import Todos from '../../components/ToDo/App';
 
@@ -115,9 +116,23 @@ class NotFound extends React.Component {
   render() {
     const { name, unreadCount } = this.state;
     const user = { name, unreadCount, lastLoginTime: new Date(1459832991883) };
+
+    // immutable test
     const map1 = Map({ a: 1, b: 2, c: 3 });
     const map2 = map1.set('b', 50);
     console.info(`${map1.get('b')} vs. ${map2.get('b')}`); // 2 vs. 50
+
+    const data = Immutable.fromJS({ a: { b: { c: 1 } } });
+    // 让 cursor 指向 { c: 1 }
+    let cursor = Cursor.from(data, ['a', 'b'], newData => {
+      // 当 cursor 或其子 cursor 执行 update 时调用
+      console.info(newData);
+    });
+    cursor.get('c'); // 1
+    cursor = cursor.update('c', x => x + 1);
+    cursor.get('c'); // 2
+
+    // --testnormalize--
     this.testnormalize();
     return (
       <div className={s.root}>

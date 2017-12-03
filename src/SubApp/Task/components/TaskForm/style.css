@@ -1,0 +1,15 @@
+.input {
+  background: #4054b2;
+  display: block;
+  border: none;
+  font: inherit;
+  height: 84px;
+  width: 400px;
+  padding: 0 20px;
+  font-size: 20px;
+  color: #fff;
+}
+
+.button {
+  display: none;
+}
