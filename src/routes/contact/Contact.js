@@ -11,7 +11,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Contact.css';
-import { Todo, Task } from '../../SubApp';
+import { Todo, Task, ORM } from '../../SubApp';
 
 class Contact extends React.Component {
   static propTypes = {
@@ -27,6 +27,8 @@ class Contact extends React.Component {
           <Todo />
           <p>...</p>
           <Task />
+          <p>...</p>
+          <ORM />
         </div>
       </div>
     );
