@@ -167,10 +167,11 @@ const config = {
             loader: 'css-loader',
             options: {
               // CSS Loader https://github.com/webpack/css-loader
-              importLoaders: 1,
+              importLoaders: 1, // 在css-loader之前有1个loader已经处理过文件了
               sourceMap: isDebug,
               // CSS Modules https://github.com/css-modules/css-modules
-              modules: true,
+              modules: true, // 启用模块化
+              // 生成的类名
               localIdentName: isDebug
                 ? '[name]-[local]-[hash:base64:5]'
                 : '[hash:base64:5]',
