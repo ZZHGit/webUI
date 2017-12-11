@@ -34,8 +34,7 @@ export const todos = createSelector(
         // We want to add a denormalized `tags` attribute
         // to each of our todos, so we make a shallow copy of `todo.ref`.
         obj = Object.assign({}, todo.ref);
-        obj.tags = todo.tags.toRefArray().map(tag => tag.name);
-        console.info(todo);
+        obj.tags = todo.tags.toRefArray().map(tag => tag.name); // 获取不到tags!!!!!Error @Todo
         return obj;
       });
   }),

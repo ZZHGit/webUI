@@ -1,7 +1,6 @@
 export default function bootstrap(orm) {
   // Get the empty state according to our schema.
   const state = orm.getEmptyState();
-
   // Begin a mutating session with that state.
   // `state` will be mutated.
   const session = orm.mutableSession(state);
@@ -60,7 +59,7 @@ export default function bootstrap(orm) {
     user: otherUser,
     tags: [personal, urgent],
   });
-  console.info(state);
+
   // Return the whole Redux initial state.
   return {
     orm: state,

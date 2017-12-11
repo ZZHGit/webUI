@@ -67,7 +67,7 @@ export class TodoItem extends PureComponent {
         {tagName}
       </Tag>
     ));
-    console.info(tags);
+
     const text = this.props.done ? (
       <del>{this.props.children}</del>
     ) : (
