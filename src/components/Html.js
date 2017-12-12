@@ -27,6 +27,7 @@ class Html extends React.Component {
     scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
     app: PropTypes.object, // eslint-disable-line
     children: PropTypes.string.isRequired,
+    muicss: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -35,7 +36,15 @@ class Html extends React.Component {
   };
 
   render() {
-    const { title, description, styles, scripts, app, children } = this.props;
+    const {
+      title,
+      description,
+      styles,
+      scripts,
+      app,
+      children,
+      muicss,
+    } = this.props;
     return (
       <html className="no-js" lang={app.lang}>
         <head>
@@ -62,6 +71,11 @@ class Html extends React.Component {
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          />
+          <style
+            id="jss-server-side"
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: muicss }}
           />
         </head>
         <body>

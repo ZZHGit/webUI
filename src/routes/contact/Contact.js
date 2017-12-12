@@ -23,12 +23,13 @@ class Contact extends React.Component {
       <div className={s.root}>
         <div className={s.container}>
           <h1>{this.props.title}</h1>
+          {/*
           <p>...</p>
           <Todo />
           <p>...</p>
           <Task />
           <p>...</p>
-          <ORM />
+          <ORM /> */}
         </div>
       </div>
     );

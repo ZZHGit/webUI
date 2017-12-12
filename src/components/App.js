@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import { IntlProvider } from 'react-intl';
 import { Provider as ReduxProvider } from 'react-redux';
 import { ApolloProvider } from 'react-apollo';
+import withRoot from './withRoot';
 
 const ContextType = {
   // Enables critical path CSS rendering
@@ -97,4 +98,4 @@ class App extends React.PureComponent {
   }
 }
 
-export default App;
+export default withRoot(App);

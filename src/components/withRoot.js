@@ -1,10 +1,12 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { withStyles, MuiThemeProvider } from 'material-ui/styles';
 import wrapDisplayName from 'recompose/wrapDisplayName';
-import createContext from '../styles/createContext';
+import pure from 'recompose/pure';
+import { getContext } from '../styles/createContext';
 
 // Apply some reset
 const styles = theme => ({
@@ -24,10 +26,15 @@ let AppWrapper = props => props.children;
 
 AppWrapper = withStyles(styles)(AppWrapper);
 
-const context = createContext();
+const context = getContext();
 
 function withRoot(BaseComponent) {
+  // Prevent rerendering
+  const PureBaseComponent = pure(BaseComponent);
   class WithRoot extends Component {
+    static propTypes = {
+      sheetsRegistry: PropTypes.object, // eslint-disable-line
+    };
     componentDidMount() {
       // Remove the server-side injected CSS.
       const jssStyles = document.querySelector('#jss-server-side');
@@ -37,14 +44,15 @@ function withRoot(BaseComponent) {
     }
 
     render() {
+      const { sheetsRegistry, ...other } = this.props;
       return (
-        <JssProvider registry={context.sheetsRegistry} jss={context.jss}>
+        <JssProvider registry={sheetsRegistry} jss={context.jss}>
           <MuiThemeProvider
             theme={context.theme}
             sheetsManager={context.sheetsManager}
           >
             <AppWrapper>
-              <BaseComponent {...this.props} />
+              <PureBaseComponent {...other} />
             </AppWrapper>
           </MuiThemeProvider>
         </JssProvider>
