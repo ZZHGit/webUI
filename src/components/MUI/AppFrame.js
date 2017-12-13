@@ -16,10 +16,9 @@ import FormatTextdirectionRToL from 'material-ui-icons/FormatTextdirectionRToL';
 import Github from './GitHub';
 import AppDrawer from './AppDrawer';
 import AppSearch from './AppSearch';
-import {
-  THEME_CHANGE_PALETTE_TYPE,
-  THEME_CHANGE_DIRECTION,
-} from '../../constants';
+import AppFooter from './AppFooter';
+
+import { changePaletteType, changeDirection } from '../../actions/theme';
 
 // Disaply a progress bar between route transitions
 NProgress.configure({
@@ -30,7 +29,7 @@ NProgress.configure({
     </div>
   `,
 });
-
+/*
 Router.onRouteChangeStart = () => {
   NProgress.start();
 };
@@ -41,7 +40,7 @@ Router.onRouteChangeComplete = () => {
 
 Router.onRouteChangeError = () => {
   NProgress.done();
-};
+}; */
 
 const styles = theme => ({
   '@global': {
@@ -152,45 +151,32 @@ class AppFrame extends React.Component {
     mobileOpen: false,
   };
 
+  componentWillUpdate() {
+    NProgress.start();
+  }
+  componentDidUpdate() {
+    NProgress.done();
+  }
+
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
 
   handleTogglePaletteType = () => {
-    this.props.dispatch({
-      type: THEME_CHANGE_PALETTE_TYPE,
-      payload: {
-        paletteType: this.props.uiTheme.paletteType === 'light' ? 'dark' : 'light',
-      },
-    });
+    this.props.dispatch(changePaletteType(this.props.uiTheme.paletteType));
   };
 
   handleToggleDirection = () => {
-    this.props.dispatch({
-      type: THEME_CHANGE_DIRECTION,
-      payload: {
-        direction: this.props.uiTheme.direction === 'ltr' ? 'rtl' : 'ltr',
-      },
-    });
+    this.props.dispatch(changeDirection(this.props.uiTheme.direction));
   };
 
   render() {
-    const { children, classes, uiTheme } = this.props;
-    const title =
-      this.context.activePage.title !== false ? pageToTitle(this.context.activePage) : null;
+    const { children, classes, uiTheme, title } = this.props;
 
-    let disablePermanent = false;
-    let navIconClassName = '';
+    const disablePermanent = false;
+    const navIconClassName = classes.navIconHide;;
     let appBarClassName = classes.appBar;
-
-    if (title === null) {
-      // home route, don't shift app bar or dock drawer
-      disablePermanent = true;
-      appBarClassName += ` ${classes.appBarHome}`;
-    } else {
-      navIconClassName = classes.navIconHide;
-      appBarClassName += ` ${classes.appBarShift}`;
-    }
+    appBarClassName += ` ${classes.appBarShift}`;
 
     return (
       <div className={classes.root}>
@@ -205,7 +191,12 @@ class AppFrame extends React.Component {
               <MenuIcon />
             </IconButton>
             {title !== null && (
-              <Typography className={classes.title} type="title" color="inherit" noWrap>
+              <Typography
+                className={classes.title}
+                type="title"
+                color="inherit"
+                noWrap
+              >
                 {title}
               </Typography>
             )}
@@ -220,7 +211,10 @@ class AppFrame extends React.Component {
                 <LightbulbOutline />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Toggle right-to-left/left-to-right" enterDelay={300}>
+            <Tooltip
+              title="Toggle right-to-left/left-to-right"
+              enterDelay={300}
+            >
               <IconButton
                 color="contrast"
                 aria-label="change direction"
@@ -237,7 +231,7 @@ class AppFrame extends React.Component {
               component="a"
               title="GitHub"
               color="contrast"
-              href="https://github.com/mui-org/material-ui/tree/v1-beta"
+              href="https://github.com"
             >
               <Github />
             </IconButton>
@@ -250,6 +244,7 @@ class AppFrame extends React.Component {
           mobileOpen={this.state.mobileOpen}
         />
         {children}
+        <AppFooter />
       </div>
     );
   }
@@ -257,22 +252,19 @@ class AppFrame extends React.Component {
 
 AppFrame.propTypes = {
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired, // eslint-disable-line
   dispatch: PropTypes.func.isRequired,
-  uiTheme: PropTypes.object.isRequired,
+  uiTheme: PropTypes.object.isRequired, // eslint-disable-line
+  title: PropTypes.string.isRequired,
 };
 
-AppFrame.contextTypes = {
-  activePage: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }),
-};
+const mapStateToProps = state => ({
+  uiTheme: state.theme,
+});
 
 export default compose(
   withStyles(styles, {
     name: 'AppFrame',
   }),
-  connect(state => ({
-    uiTheme: state.theme,
-  })),
+  connect(mapStateToProps),
 )(AppFrame);

@@ -70,7 +70,7 @@ function AppFooter(props) {
 }
 
 AppFooter.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired, // eslint-disable-lines
 };
 
 export default withStyles(styleSheet)(AppFooter);

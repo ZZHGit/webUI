@@ -1,9 +1,8 @@
 import { handleActions } from 'redux-actions';
 import {
-  THEME_CHANGE_PALETTE_TYPE,
-  THEME_CHANGE_DIRECTION,
+  // eslint-disable-next-line
+  THEME_CHANGE_PALETTE_TYPE, THEME_CHANGE_DIRECTION,
 } from '../constants';
-// https://redux-actions.js.org/docs/api/
 
 const theme = handleActions(
   {
@@ -18,7 +17,7 @@ const theme = handleActions(
 
     THEME_CHANGE_DIRECTION: (state, action) => ({
       ...state,
-      direction: action.payload.locale,
+      direction: action.payload.direction,
     }),
   },
   {},

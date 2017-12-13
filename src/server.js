@@ -23,7 +23,7 @@ import ReactDOM from 'react-dom/server';
 import { getDataFromTree } from 'react-apollo';
 import PrettyError from 'pretty-error';
 import { IntlProvider } from 'react-intl';
-import withRoot from './components/withRoot';
+import CleanCSS from 'clean-css';
 
 import './serverIntlPolyfill';
 import createApolloClient from './core/createApolloClient';
@@ -43,7 +43,7 @@ import { setLocale } from './actions/intl';
 import config from './config';
 
 const app = express();
-
+const cleanCSS = new CleanCSS();
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
 // user agent is not known.
@@ -260,6 +260,9 @@ app.get('*', async (req, res, next) => {
     data.children = await ReactDOM.renderToString(rootComponent);
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
     data.muicss = sheets.toString();
+    if (process.env.NODE_ENV === 'production') {
+      data.muicss = cleanCSS.minify(data.muicss).styles;
+    }
     console.info(data.muicss);
     data.scripts = [assets.vendor.js];
     if (route.chunks) {

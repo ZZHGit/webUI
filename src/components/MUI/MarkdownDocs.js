@@ -5,10 +5,10 @@ import warning from 'warning';
 import Head from 'next/head';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import AppContent from 'docs/src/modules/components/AppContent';
-import MarkdownElement from 'docs/src/modules/components/MarkdownElement';
-import Demo from 'docs/src/modules/components/Demo';
-import Carbon from 'docs/src/modules/components/Carbon';
+import AppContent from './AppContent';
+import MarkdownElement from './MarkdownElement';
+import Demo from './Demo';
+import Carbon from './Carbon';
 import { getHeaders, getContents, getTitle } from 'docs/src/modules/utils/parseMarkdown';
 
 const styles = {

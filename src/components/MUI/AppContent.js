@@ -25,8 +25,8 @@ function AppContent(props) {
 
 AppContent.propTypes = {
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
+  classes: PropTypes.object.isRequired, // eslint-disable-line
+  className: PropTypes.string, // eslint-disable-line
 };
 
 export default withStyles(styles)(AppContent);

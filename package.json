@@ -2,7 +2,10 @@
   "name": "@myorg/coolweb",
   "version": "0.0.1",
   "description": "教育门户网站",
-  "keywords": ["HR", "React"],
+  "keywords": [
+    "HR",
+    "React"
+  ],
   "homepage": "https://myweb.com",
   "main": "src/client/index.js",
   "engines": {
@@ -16,13 +19,19 @@
     "type": "git",
     "url": "https://github.com/user/coolweb"
   },
-  "browserslist": [">1%", "last 4 versions", "Firefox ESR", "not ie < 9"],
+  "browserslist": [
+    ">1%",
+    "last 4 versions",
+    "Firefox ESR",
+    "not ie < 9"
+  ],
   "dependencies": {
     "@babel/polyfill": "7.0.0-beta.32",
     "apollo-client": "^1.7.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
+    "clean-css": "^4.1.9",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.5.1",
     "express": "^4.16.2",
@@ -168,9 +177,18 @@
     "webpack-node-externals": "^1.6.0"
   },
   "lint-staged": {
-    "*.{js,jsx}": ["eslint --no-ignore --fix", "git add --force"],
-    "*.{json,md,graphql}": ["prettier --write", "git add --force"],
-    "*.{css,less,styl,scss,sass,sss}": ["stylelint --fix", "git add --force"]
+    "*.{js,jsx}": [
+      "eslint --no-ignore --fix",
+      "git add --force"
+    ],
+    "*.{json,md,graphql}": [
+      "prettier --write",
+      "git add --force"
+    ],
+    "*.{css,less,styl,scss,sass,sss}": [
+      "stylelint --fix",
+      "git add --force"
+    ]
   },
   "scripts": {
     "docs": "esdoc && serve ./esdoc",
@@ -197,7 +215,6 @@
     "serve": "babel-node tools/run runServer",
     "start": "babel-node tools/run start",
     "doctest": "babel-node example/esdoc",
-    "build-doctest":
-      "babel example/esdoc.js --out-file example/build/esdoc.js -s inline"
+    "build-doctest": "babel example/esdoc.js --out-file example/build/esdoc.js -s inline"
   }
 }
