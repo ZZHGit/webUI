@@ -10,6 +10,7 @@
 import path from 'path';
 import Promise from 'bluebird';
 import express from 'express';
+import { JssProvider, SheetsRegistry } from 'jss';
 import cookieParser from 'cookie-parser';
 import requestLanguage from 'express-request-language';
 import bodyParser from 'body-parser';
@@ -22,6 +23,7 @@ import ReactDOM from 'react-dom/server';
 import { getDataFromTree } from 'react-apollo';
 import PrettyError from 'pretty-error';
 import { IntlProvider } from 'react-intl';
+import withRoot from './components/withRoot';
 
 import './serverIntlPolyfill';
 import createApolloClient from './core/createApolloClient';
@@ -39,8 +41,6 @@ import configureStore from './store/configureStore';
 import { setRuntimeVariable } from './actions/runtime';
 import { setLocale } from './actions/intl';
 import config from './config';
-import { getContext } from './styles/createContext';
-import { log } from '../node_modules/_util@0.10.3@util';
 
 const app = express();
 
@@ -209,7 +209,7 @@ app.get('*', async (req, res, next) => {
     );
 
     const css = new Set();
-    const stylecontext = getContext();
+    // const stylecontext = getContext();
 
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
@@ -243,15 +243,14 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
+    const sheets = new SheetsRegistry();
 
-    const rootComponent = (
-      <App
-        context={context}
-        store={store}
-        sheetsRegistry={stylecontext.sheetsRegistry}
-      >
-        {route.component}
-      </App>
+    const rootComponent = () => (
+      <JssProvider registry={sheets}>
+        <App context={context} store={store} sheetsRegistry={sheets}>
+          {route.component}
+        </App>
+      </JssProvider>
     );
 
     // 可通过getDataFromTree函数，执行查询后给出一个Promise，完成Apollo客户端实例的初始化
@@ -260,7 +259,8 @@ app.get('*', async (req, res, next) => {
     await Promise.delay(0);
     data.children = await ReactDOM.renderToString(rootComponent);
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
-    data.muicss = stylecontext.sheetsRegistry.toString();
+    data.muicss = sheets.toString();
+    console.info(data.muicss);
     data.scripts = [assets.vendor.js];
     if (route.chunks) {
       data.scripts.push(...route.chunks.map(chunk => assets[chunk].js));
@@ -270,7 +270,7 @@ app.get('*', async (req, res, next) => {
     // Furthermore invoked actions will be ignored, client will not receive them!
     if (__DEV__) {
       // eslint-disable-next-line no-console
-      console.log('Serializing store...');
+      console.log('Serializing store......');
     }
     data.app = {
       apiUrl: config.api.clientUrl,
@@ -278,7 +278,7 @@ app.get('*', async (req, res, next) => {
       lang: locale,
     };
     // 发送服务端渲染结果 设置初始状态
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+    const html = ReactDOM.renderToString(<Html {...data} />);
     res.status(route.status || 200);
     res.send(`<!doctype html>${html}`);
   } catch (err) {

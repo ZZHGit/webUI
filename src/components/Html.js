@@ -74,7 +74,6 @@ class Html extends React.Component {
           />
           <style
             id="jss-server-side"
-            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: muicss }}
           />
         </head>

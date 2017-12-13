@@ -6,7 +6,7 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import { withStyles, MuiThemeProvider } from 'material-ui/styles';
 import wrapDisplayName from 'recompose/wrapDisplayName';
 import pure from 'recompose/pure';
-import { getContext } from '../styles/createContext';
+import getContext from '../styles/createContext';
 
 // Apply some reset
 const styles = theme => ({
@@ -26,8 +26,6 @@ let AppWrapper = props => props.children;
 
 AppWrapper = withStyles(styles)(AppWrapper);
 
-const context = getContext();
-
 function withRoot(BaseComponent) {
   // Prevent rerendering
   const PureBaseComponent = pure(BaseComponent);
@@ -35,21 +33,28 @@ function withRoot(BaseComponent) {
     static propTypes = {
       sheetsRegistry: PropTypes.object, // eslint-disable-line
     };
+    componentWillMount() {
+      this.styleContext = getContext();
+    }
     componentDidMount() {
-      // Remove the server-side injected CSS.
-      const jssStyles = document.querySelector('#jss-server-side');
-      if (jssStyles && jssStyles.parentNode) {
-        jssStyles.parentNode.removeChild(jssStyles);
-      }
+      // Do less at the start.
+      setTimeout(() => {
+        console.info('remove---------------');
+        // Remove the server-side injected CSS.
+        const jssStyles = document.querySelector('#jss-server-side');
+        if (jssStyles && jssStyles.parentNode) {
+          jssStyles.parentNode.removeChild(jssStyles);
+        }
+      }, 3000);
     }
 
     render() {
       const { sheetsRegistry, ...other } = this.props;
       return (
-        <JssProvider registry={sheetsRegistry} jss={context.jss}>
+        <JssProvider registry={sheetsRegistry} jss={this.styleContext.jss}>
           <MuiThemeProvider
-            theme={context.theme}
-            sheetsManager={context.sheetsManager}
+            theme={this.styleContext.theme}
+            sheetsManager={this.styleContext.sheetsManager}
           >
             <AppWrapper>
               <PureBaseComponent {...other} />

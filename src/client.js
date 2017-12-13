@@ -14,6 +14,7 @@ import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
 import { createPath } from 'history/PathUtils';
 import { addLocaleData } from 'react-intl';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 // This is so bad: requiring all locale if they are not needed?
 /* @intl-code-template import ${lang} from 'react-intl/locale-data/${lang}'; */
 import en from 'react-intl/locale-data/en';
@@ -29,6 +30,7 @@ import router from './router';
 import { getIntl } from './actions/intl';
 
 const apolloClient = createApolloClient();
+injectTapEventPlugin();
 
 /* @intl-code-template addLocaleData(${lang}); */
 addLocaleData(en);

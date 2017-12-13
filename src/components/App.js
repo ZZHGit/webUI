@@ -58,34 +58,9 @@ class App extends React.PureComponent {
   };
 
   static childContextTypes = ContextType;
-
   getChildContext() {
     return this.props.context; // 全局变量
   }
-
-  // NOTE: This methods are not needed if you update URL by setLocale action.
-  //
-  //  componentDidMount() {
-  //    const store = this.props.context && this.props.context.store;
-  //    if (store) {
-  //      this.lastLocale = store.getState().intl.locale;
-  //      this.unsubscribe = store.subscribe(() => {
-  //        const state = store.getState();
-  //        const { newLocale, locale } = state.intl;
-  //        if (!newLocale && this.lastLocale !== locale) {
-  //          this.lastLocale = locale;
-  //          this.forceUpdate();
-  //        }
-  //      });
-  //    }
-  //  }
-  //
-  //  componentWillUnmount() {
-  //    if (this.unsubscribe) {
-  //      this.unsubscribe();
-  //      this.unsubscribe = null;
-  //    }
-  //  }
 
   render() {
     // Here, we are at universe level, sure? ;-)

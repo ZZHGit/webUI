@@ -17,7 +17,7 @@ export function getTheme(theme) {
   });
 }
 const theme = getTheme({
-  // direction: 'ltr',
+  direction: 'ltr',
   paletteType: 'light',
 });
 
@@ -27,7 +27,7 @@ jss.options.createGenerateClassName = createGenerateClassName;
 
 export const sheetsManager = new Map();
 
-export default function createContext() {
+export function createContext() {
   return {
     jss,
     theme,
@@ -39,7 +39,7 @@ export default function createContext() {
   };
 }
 
-export function getContext() {
+export default function getContext() {
   // Make sure to create a new store for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (!process.browser) {

@@ -15,7 +15,7 @@ import withRoot from './withRoot';
 const styles = {
   root: {
     textAlign: 'center',
-    paddingTop: 200,
+    paddingTop: 100,
   },
 };
 
@@ -67,7 +67,6 @@ class Index extends Component {
   render() {
     return (
       <div className={this.props.classes.root}>
-        <Btn>button</Btn>
         <Dialog open={this.state.open} onClose={this.handleClose}>
           <DialogTitle>Super Secret Password</DialogTitle>
           <DialogContent>
