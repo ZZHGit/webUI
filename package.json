@@ -104,6 +104,7 @@
     "babel-plugin-react-intl": "^2.3.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.10",
     "browser-sync": "^2.18.13",
+    "chalk": "^2.3.0",
     "chokidar": "^1.7.0",
     "css-loader": "^0.28.7",
     "enzyme": "^3.1.1",
@@ -126,6 +127,7 @@
     "flow-bin": "^0.59.0",
     "front-matter": "^2.3.0",
     "glob": "^7.1.2",
+    "gm": "^1.23.0",
     "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^21.2.1",
@@ -215,6 +217,7 @@
     "serve": "babel-node tools/run runServer",
     "start": "babel-node tools/run start",
     "doctest": "babel-node example/esdoc",
-    "build-doctest": "babel example/esdoc.js --out-file example/build/esdoc.js -s inline"
+    "build-doctest": "babel example/esdoc.js --out-file example/build/esdoc.js -s inline",
+    "build-icons": "rimraf build/public/icons/* && babel-node tools/run buildIcons"
   }
 }

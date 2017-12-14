@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import NextLink from 'next/link';
 import { withStyles } from 'material-ui/styles';
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers';
+import history from '../../history';
 
 const styles = theme => ({
   root: {
@@ -28,7 +28,25 @@ const styles = theme => ({
   },
 });
 
+function isLeftClickEvent(event) {
+  return event.button === 0;
+}
+
+function isModifiedEvent(event) {
+  return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
+}
+
 class OnClick extends React.Component {
+  static propTypes = {
+    to: PropTypes.string.isRequired,
+    component: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
+    onCustomClick: PropTypes.func,
+  };
+  static defaultProps = {
+    onClick: null,
+    onCustomClick: null,
+  };
   handleClick = event => {
     if (this.props.onClick) {
       this.props.onClick(event);
@@ -37,6 +55,16 @@ class OnClick extends React.Component {
     if (this.props.onCustomClick) {
       this.props.onCustomClick(event);
     }
+    if (isModifiedEvent(event) || !isLeftClickEvent(event)) {
+      return;
+    }
+
+    if (event.defaultPrevented === true) {
+      return;
+    }
+
+    event.preventDefault();
+    history.push(this.props.to);
   };
 
   render() {
@@ -45,21 +73,15 @@ class OnClick extends React.Component {
   }
 }
 
-OnClick.propTypes = {
-  component: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
-  onCustomClick: PropTypes.func,
-};
-
-function Link(props, context) {
+function Link(props) {
   const {
+    to,
     activeClassName,
     children: childrenProp,
     component: ComponentProp,
     classes,
     className: classNameProp,
     variant,
-    href,
     onClick,
     prefetch,
     ...other
@@ -80,14 +102,16 @@ function Link(props, context) {
       ...other,
       className,
     };
-  } else if (href) {
-    ComponentRoot = NextLink;
+  } else if (to) {
+    ComponentRoot = 'a';
     RootProps = {
-      href,
+      to,
       prefetch,
       passHref: true,
     };
-    const active = context.url.pathname === href;
+    const currentLocation = history.location;
+    console.info('1111111111111111', currentLocation);
+    const active = currentLocation === to;
     children = (
       <OnClick
         component="a"
@@ -116,21 +140,15 @@ Link.defaultProps = {
   activeClassName: 'active',
 };
 
-Link.contextTypes = {
-  url: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
 Link.propTypes = {
+  to: PropTypes.string.isRequired,
   activeClassName: PropTypes.string,
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  component: PropTypes.any,
-  href: PropTypes.string,
-  onClick: PropTypes.func,
-  prefetch: PropTypes.bool,
+  classes: PropTypes.object.isRequired, // eslint-disable-line
+  className: PropTypes.string, // eslint-disable-line
+  component: PropTypes.any, // eslint-disable-line
+  onClick: PropTypes.func, // eslint-disable-line
+  prefetch: PropTypes.bool, // eslint-disable-line
   variant: PropTypes.oneOf(['default', 'primary', 'accent', 'button']),
 };
 

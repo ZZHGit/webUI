@@ -338,6 +338,7 @@ const clientConfig = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
       'process.env.BROWSER': true,
+      'process.env.MATERIAL_UI_VERSION': JSON.stringify(pkg.version),
       __DEV__: isDebug,
     }),
 
@@ -490,6 +491,7 @@ const serverConfig = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
       'process.env.BROWSER': false,
+      'process.env.MATERIAL_UI_VERSION': JSON.stringify(pkg.version),
       __DEV__: isDebug,
     }),
 

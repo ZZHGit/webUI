@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import kebabCase from 'lodash/kebabCase';
-import warning from 'warning';
 import Head from 'next/head';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
@@ -63,7 +62,6 @@ function MarkdownDocs(props, context) {
 
         if (match && demos) {
           const name = match[1];
-          warning(demos && demos[name], `Missing demo: ${name}.`);
           return <Demo key={content} js={demos[name].js} raw={demos[name].raw} />;
         }
 

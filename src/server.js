@@ -41,6 +41,7 @@ import configureStore from './store/configureStore';
 import { setRuntimeVariable } from './actions/runtime';
 import { setLocale } from './actions/intl';
 import config from './config';
+import getContext from './styles/createContext';
 
 const app = express();
 const cleanCSS = new CleanCSS();
@@ -209,7 +210,7 @@ app.get('*', async (req, res, next) => {
     );
 
     const css = new Set();
-    // const stylecontext = getContext();
+    const stylecontext = getContext();
 
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
@@ -243,7 +244,7 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    const sheets = new SheetsRegistry();
+    const sheets = stylecontext.sheetsRegistry;
 
     const rootComponent = () => (
       <JssProvider registry={sheets}>

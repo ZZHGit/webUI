@@ -8,9 +8,11 @@ import Drawer from 'material-ui/Drawer';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Hidden from 'material-ui/Hidden';
-import AppDrawerNavItem from 'docs/src/modules/components/AppDrawerNavItem';
-import Link from 'docs/src/modules/components/Link';
-import { pageToTitle } from 'docs/src/modules/utils/helpers';
+import AppDrawerNavItem from './AppDrawerNavItem';
+import Link from './Link';
+import { pageToTitle } from './utils/helpers';
+import routes from '../../routes';
+import history from '../../history';
 
 const styles = theme => ({
   paper: {
@@ -38,20 +40,10 @@ const styles = theme => ({
   },
 });
 
-function renderNavItems(props, pages, activePage) {
-  let navItems = null;
-
-  if (pages && pages.length) {
-    // eslint-disable-next-line no-use-before-define
-    navItems = pages.reduce(reduceChildRoutes.bind(null, props, activePage), []);
-  }
-
-  return <List>{navItems}</List>;
-}
-
 function reduceChildRoutes(props, activePage, items, childPage, index) {
   if (childPage.children && childPage.children.length > 1) {
-    const openImmediately = activePage.pathname.indexOf(childPage.pathname) !== -1 || false;
+    const openImmediately =
+      activePage.pathname.indexOf(childPage.pathname) !== -1 || false;
 
     items.push(
       <AppDrawerNavItem
@@ -79,16 +71,29 @@ function reduceChildRoutes(props, activePage, items, childPage, index) {
   return items;
 }
 
-const GITHUB_RELEASE_BASE_URL = 'https://github.com/mui-org/material-ui/releases/tag/';
+function renderNavItems(props, Routes, activePage) {
+  let navItems = null;
+  if (Routes.children && Routes.children.length) {
+    // eslint-disable-next-line no-use-before-define
+    navItems = Routes.children.reduce(
+      reduceChildRoutes.bind(null, props, activePage),
+      [],
+    );
+  }
+  return <List>{navItems}</List>;
+}
 
-function AppDrawer(props, context) {
+const GITHUB_RELEASE_BASE_URL =
+  'https://github.com/mui-org/material-ui/releases/tag/';
+
+function AppDrawer(props) {
   const { classes, className, disablePermanent, mobileOpen, onClose } = props;
 
   const drawer = (
     <div className={classes.nav}>
       <div className={classes.toolbarIe11}>
         <Toolbar className={classes.toolbar}>
-          <Link className={classes.title} href="/" onClick={onClose}>
+          <Link className={classes.title} to="/" onClick={onClose}>
             <Typography type="title" gutterBottom color="inherit">
               Material-UI
             </Typography>
@@ -96,15 +101,19 @@ function AppDrawer(props, context) {
           {process.env.MATERIAL_UI_VERSION ? (
             <Link
               className={classes.anchor}
-              href={`${GITHUB_RELEASE_BASE_URL}v${process.env.MATERIAL_UI_VERSION}`}
+              href={`${GITHUB_RELEASE_BASE_URL}v${
+                process.env.MATERIAL_UI_VERSION
+              }`}
             >
-              <Typography type="caption">{`v${process.env.MATERIAL_UI_VERSION}`}</Typography>
+              <Typography type="caption">{`v${
+                process.env.MATERIAL_UI_VERSION
+              }`}</Typography>
             </Link>
           ) : null}
           <Divider absolute />
         </Toolbar>
       </div>
-      {renderNavItems(props, context.pages, context.activePage)}
+      {renderNavItems(props, routes, history.location)}
     </div>
   );
 
@@ -143,16 +152,11 @@ function AppDrawer(props, context) {
 }
 
 AppDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
+  classes: PropTypes.object.isRequired, // eslint-disable-line
+  className: PropTypes.string, // eslint-disable-line
   disablePermanent: PropTypes.bool.isRequired,
   mobileOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-};
-
-AppDrawer.contextTypes = {
-  activePage: PropTypes.object,
-  pages: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(AppDrawer);

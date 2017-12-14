@@ -91,8 +91,9 @@ const styles = theme => ({
   },
   input: {
     font: 'inherit',
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit}px ${theme.spacing.unit}px ${theme
-      .spacing.unit * 9}px`,
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit}px ${
+      theme.spacing.unit
+    }px ${theme.spacing.unit * 9}px`,
     border: 0,
     display: 'block',
     verticalAlign: 'middle',

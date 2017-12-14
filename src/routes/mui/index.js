@@ -8,27 +8,16 @@
  */
 
 import React from 'react';
-import Home from '../../components/MUI/index';
 import AppFrame from '../../components/MUI/AppFrame';
-// import Layout from '../../components/Layout';
+import AppBar from '../../components/MUI/app-bar-api';
 
-/*
-  const resp = await fetch('/graphql', {
-    body: JSON.stringify({
-      query: '{news{title,link,content}}',
-    }),
-  });
-  const { data } = await resp.json();
-  if (!data || !data.news) throw new Error('Failed to load the news feed.');
-*/
-
-async function action() {
+function action() {
   return {
-    chunks: ['home'],
-    title: 'Home',
+    chunks: ['mui'],
+    title: 'app-bar-api',
     component: (
       <AppFrame>
-        <Home />
+        <AppBar />
       </AppFrame>
     ),
   };

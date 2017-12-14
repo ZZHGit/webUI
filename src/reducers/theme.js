@@ -20,7 +20,10 @@ const theme = handleActions(
       direction: action.payload.direction,
     }),
   },
-  {},
+  {
+    paletteType: 'light',
+    direction: 'ltr',
+  },
 );
 
 export default theme;

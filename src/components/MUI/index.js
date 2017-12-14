@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import compose from 'recompose/compose';
-import Head from 'next/head';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
-import withRoot from 'docs/src/modules/components/withRoot';
-import AppFooter from 'docs/src/modules/components/AppFooter';
-import Link from 'docs/src/modules/components/Link';
+import Link from './Link';
 
 const styles = theme => ({
   root: {
@@ -55,13 +51,10 @@ const styles = theme => ({
 });
 
 function PageHome(props) {
-  const classes = props.classes;
+  const { classes } = props;
 
   return (
     <div className={classes.root}>
-      <Head>
-        <title>Material-UI</title>
-      </Head>
       <div className={classes.hero}>
         <div className={classes.content}>
           <img
@@ -89,13 +82,12 @@ function PageHome(props) {
           </div>
         </div>
       </div>
-      <AppFooter />
     </div>
   );
 }
 
 PageHome.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired, // eslint-disable-line
 };
 
-export default compose(withRoot, withStyles(styles))(PageHome);
+export default withStyles(styles)(PageHome);
