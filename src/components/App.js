@@ -12,7 +12,6 @@ import PropTypes from 'prop-types';
 import { IntlProvider } from 'react-intl';
 import { Provider as ReduxProvider } from 'react-redux';
 import { ApolloProvider } from 'react-apollo';
-import withRoot from './withRoot';
 
 const ContextType = {
   // Enables critical path CSS rendering
@@ -27,6 +26,8 @@ const ContextType = {
   client: PropTypes.object.isRequired,
   // ReactIntl
   intl: IntlProvider.childContextTypes.intl,
+  styleContext: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 /**
@@ -73,4 +74,4 @@ class App extends React.PureComponent {
   }
 }
 
-export default withRoot(App);
+export default App;

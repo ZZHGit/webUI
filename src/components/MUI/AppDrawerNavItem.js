@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'docs/src/modules/components/Link';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import { ListItem } from 'material-ui/List';
 import Button from 'material-ui/Button';
 import Collapse from 'material-ui/transitions/Collapse';
+import Link from './Link';
 
 const styles = theme => ({
   button: theme.mixins.gutters({
@@ -102,10 +102,10 @@ class AppDrawerNavItem extends React.Component {
 }
 
 AppDrawerNavItem.propTypes = {
-  children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
-  href: PropTypes.string,
-  onClick: PropTypes.func,
+  children: PropTypes.node, // eslint-disable-line
+  classes: PropTypes.object.isRequired, // eslint-disable-line
+  href: PropTypes.string, // eslint-disable-line
+  onClick: PropTypes.func,  // eslint-disable-line
   openImmediately: PropTypes.bool,
   title: PropTypes.string.isRequired,
 };

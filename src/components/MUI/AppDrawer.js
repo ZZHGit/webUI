@@ -44,25 +44,28 @@ function reduceChildRoutes(props, activePage, items, childPage, index) {
   if (childPage.children && childPage.children.length > 1) {
     const openImmediately =
       activePage.pathname.indexOf(childPage.pathname) !== -1 || false;
-
     items.push(
       <AppDrawerNavItem
         key={index}
         openImmediately={openImmediately}
         title={pageToTitle(childPage)}
       >
-        {renderNavItems(props, childPage.children, activePage)}
+        {// eslint-disable-next-line
+          renderNavItems(props, childPage.children, activePage)
+        }
       </AppDrawerNavItem>,
     );
   } else if (childPage.title !== false) {
+    // eslint-disable-next-line
     childPage =
-      childPage.children && childPage.children.length === 1 ? childPage.children[0] : childPage;
-
+      childPage.children && childPage.children.length === 1
+        ? childPage.children[0]
+        : childPage;
     items.push(
       <AppDrawerNavItem
         key={index}
         title={pageToTitle(childPage)}
-        href={childPage.pathname}
+        href={childPage.path}
         onClick={props.onClose}
       />,
     );
@@ -73,9 +76,9 @@ function reduceChildRoutes(props, activePage, items, childPage, index) {
 
 function renderNavItems(props, Routes, activePage) {
   let navItems = null;
-  if (Routes.children && Routes.children.length) {
+  if (Routes && Routes.length) {
     // eslint-disable-next-line no-use-before-define
-    navItems = Routes.children.reduce(
+    navItems = Routes.reduce(
       reduceChildRoutes.bind(null, props, activePage),
       [],
     );
@@ -88,12 +91,12 @@ const GITHUB_RELEASE_BASE_URL =
 
 function AppDrawer(props) {
   const { classes, className, disablePermanent, mobileOpen, onClose } = props;
-
+  const Pages = [{ path: '/Home', children: routes.children }];
   const drawer = (
     <div className={classes.nav}>
       <div className={classes.toolbarIe11}>
         <Toolbar className={classes.toolbar}>
-          <Link className={classes.title} to="/" onClick={onClose}>
+          <Link className={classes.title} to="/">
             <Typography type="title" gutterBottom color="inherit">
               Material-UI
             </Typography>
@@ -113,7 +116,7 @@ function AppDrawer(props) {
           <Divider absolute />
         </Toolbar>
       </div>
-      {renderNavItems(props, routes, history.location)}
+      {renderNavItems(props, Pages, history.location)}
     </div>
   );
 

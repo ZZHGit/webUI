@@ -12,12 +12,12 @@
 // The top-level (parent) route
 const routes = {
   path: '',
-  title: 'Home',
 
   // Keep in mind, routes are evaluated in order
   children: [
     {
       path: '',
+      title: 'home',
       load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {

@@ -10,7 +10,7 @@
 import path from 'path';
 import Promise from 'bluebird';
 import express from 'express';
-import { JssProvider, SheetsRegistry } from 'jss';
+import { JssProvider } from 'jss';
 import cookieParser from 'cookie-parser';
 import requestLanguage from 'express-request-language';
 import bodyParser from 'body-parser';
@@ -210,7 +210,7 @@ app.get('*', async (req, res, next) => {
     );
 
     const css = new Set();
-    const stylecontext = getContext();
+    const styleContext = getContext();
 
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
@@ -229,6 +229,7 @@ app.get('*', async (req, res, next) => {
       client: apolloClient,
       // intl instance as it can be get with injectIntl
       intl,
+      styleContext,
     };
 
     const route = await router.resolve({
@@ -244,11 +245,10 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    const sheets = stylecontext.sheetsRegistry;
 
     const rootComponent = () => (
-      <JssProvider registry={sheets}>
-        <App context={context} store={store} sheetsRegistry={sheets}>
+      <JssProvider registry={styleContext.sheetsRegistry}>
+        <App context={context} store={store}>
           {route.component}
         </App>
       </JssProvider>
@@ -260,7 +260,7 @@ app.get('*', async (req, res, next) => {
     await Promise.delay(0);
     data.children = await ReactDOM.renderToString(rootComponent);
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
-    data.muicss = sheets.toString();
+    data.muicss = styleContext.sheetsRegistry.toString();
     if (process.env.NODE_ENV === 'production') {
       data.muicss = cleanCSS.minify(data.muicss).styles;
     }

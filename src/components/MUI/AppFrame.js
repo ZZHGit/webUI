@@ -16,7 +16,6 @@ import FormatTextdirectionRToL from 'material-ui-icons/FormatTextdirectionRToL';
 import Github from './GitHub';
 import AppDrawer from './AppDrawer';
 import AppSearch from './AppSearch';
-import AppFooter from './AppFooter';
 
 import { changePaletteType, changeDirection } from '../../actions/theme';
 
@@ -64,7 +63,9 @@ const styles = theme => ({
       '& .bar': {
         position: 'fixed',
         background:
-          theme.palette.type === 'light' ? theme.palette.common.black : theme.palette.common.white,
+          theme.palette.type === 'light'
+            ? theme.palette.common.black
+            : theme.palette.common.white,
         borderRadius: 1,
         zIndex: theme.zIndex.tooltip,
         top: 0,
@@ -77,7 +78,9 @@ const styles = theme => ({
         top: 0,
         height: 2,
         boxShadow: `${
-          theme.palette.type === 'light' ? theme.palette.common.black : theme.palette.common.white
+          theme.palette.type === 'light'
+            ? theme.palette.common.black
+            : theme.palette.common.white
         } 1px 0 6px 1px`,
         borderRadius: '100%',
         animation: 'nprogress-pulse 2s ease-out 0s infinite',
@@ -171,13 +174,17 @@ class AppFrame extends React.Component {
   };
 
   render() {
-    const { children, classes, uiTheme, title } = this.props;
-
-    const disablePermanent = false;
-    const navIconClassName = classes.navIconHide;;
+    const { children, classes, uiTheme, disablePermanent } = this.props;
+    let navIconClassName = '';
     let appBarClassName = classes.appBar;
-    appBarClassName += ` ${classes.appBarShift}`;
-
+    console.info('222222222222222', this.props);
+    if (disablePermanent === true) {
+      // home route, don't shift app bar or dock drawer
+      appBarClassName += ` ${classes.appBarHome}`;
+    } else {
+      navIconClassName = classes.navIconHide;
+      appBarClassName += ` ${classes.appBarShift}`;
+    }
     return (
       <div className={classes.root}>
         <AppBar className={appBarClassName}>
@@ -190,14 +197,14 @@ class AppFrame extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            {title !== null && (
+            {!disablePermanent && (
               <Typography
                 className={classes.title}
                 type="title"
                 color="inherit"
                 noWrap
               >
-                {title}
+                Title
               </Typography>
             )}
             <div className={classes.grow} />
@@ -244,7 +251,6 @@ class AppFrame extends React.Component {
           mobileOpen={this.state.mobileOpen}
         />
         {children}
-        <AppFooter />
       </div>
     );
   }
@@ -255,7 +261,7 @@ AppFrame.propTypes = {
   classes: PropTypes.object.isRequired, // eslint-disable-line
   dispatch: PropTypes.func.isRequired,
   uiTheme: PropTypes.object.isRequired, // eslint-disable-line
-  title: PropTypes.string.isRequired,
+  disablePermanent: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

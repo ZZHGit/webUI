@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import marked from 'marked';
 import { withStyles } from 'material-ui/styles';
-import prism from 'docs/src/modules/utils/prism';
+import prism from './utils/prism';
 
 const renderer = new marked.Renderer();
 
@@ -157,8 +157,9 @@ const styles = theme => ({
     },
     '& td': {
       borderBottom: `1px solid ${theme.palette.text.lightDivider}`,
-      padding: `${theme.spacing.unit}px ${theme.spacing.unit * 5}px ${theme.spacing.unit}px ${theme
-        .spacing.unit * 3}px`,
+      padding: `${theme.spacing.unit}px ${theme.spacing.unit * 5}px ${
+        theme.spacing.unit
+      }px ${theme.spacing.unit * 3}px`,
       textAlign: 'left',
     },
     '& td:last-child': {
@@ -221,9 +222,9 @@ function MarkdownElement(props) {
 }
 
 MarkdownElement.propTypes = {
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  text: PropTypes.string,
+  classes: PropTypes.object.isRequired, // eslint-disable-line
+  className: PropTypes.string, // eslint-disable-line
+  text: PropTypes.string, // eslint-disable-line
 };
 
 export default withStyles(styles, { flip: false })(MarkdownElement);

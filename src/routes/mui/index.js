@@ -8,18 +8,13 @@
  */
 
 import React from 'react';
-import AppFrame from '../../components/MUI/AppFrame';
-import AppBar from '../../components/MUI/app-bar-api';
+import AppBar from './AppBar';
 
 function action() {
   return {
     chunks: ['mui'],
     title: 'app-bar-api',
-    component: (
-      <AppFrame>
-        <AppBar />
-      </AppFrame>
-    ),
+    component: <AppBar />,
   };
 }
 

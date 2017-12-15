@@ -9,8 +9,6 @@
 
 import React from 'react';
 import Home from '../../components/MUI/index';
-import AppFrame from '../../components/MUI/AppFrame';
-// import Layout from '../../components/Layout';
 
 /*
   const resp = await fetch('/graphql', {
@@ -26,11 +24,7 @@ async function action() {
   return {
     chunks: ['home'],
     title: 'Home',
-    component: (
-      <AppFrame>
-        <Home />
-      </AppFrame>
-    ),
+    component: <Home />,
   };
 }
 

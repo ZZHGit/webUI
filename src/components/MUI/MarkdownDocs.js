@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import kebabCase from 'lodash/kebabCase';
-import Head from 'next/head';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import AppContent from './AppContent';
 import MarkdownElement from './MarkdownElement';
 import Demo from './Demo';
-import Carbon from './Carbon';
-import { getHeaders, getContents, getTitle } from 'docs/src/modules/utils/parseMarkdown';
+import { getHeaders, getContents } from './utils/parseMarkdown';
 
 const styles = {
   root: {
@@ -22,14 +20,20 @@ const styles = {
 };
 
 const demoRegexp = /^demo='(.*)'$/;
-const SOURCE_CODE_ROOT_URL = 'https://github.com/mui-org/material-ui/tree/v1-beta';
+const SOURCE_CODE_ROOT_URL =
+  'https://github.com/mui-org/material-ui/tree/v1-beta';
 
-function MarkdownDocs(props, context) {
-  const { classes, demos, markdown, sourceLocation: sourceLocationProp } = props;
+function MarkdownDocs(props) {
+  const {
+    classes,
+    demos,
+    markdown,
+    sourceLocation: sourceLocationProp,
+  } = props;
   const contents = getContents(markdown);
   const headers = getHeaders(markdown);
 
-  let sourceLocation = sourceLocationProp || context.activePage.pathname;
+  let sourceLocation = sourceLocationProp || '';
 
   if (!sourceLocationProp) {
     // Hack for handling the nested demos
@@ -48,21 +52,19 @@ function MarkdownDocs(props, context) {
 
   return (
     <AppContent className={classes.root}>
-      <Head>
-        <title>{`${getTitle(markdown)} - Material-UI`}</title>
-      </Head>
       <div className={classes.header}>
         <Button component="a" href={`${SOURCE_CODE_ROOT_URL}${sourceLocation}`}>
           {'Edit this page'}
         </Button>
       </div>
-      <Carbon key={sourceLocation} />
       {contents.map(content => {
         const match = content.match(demoRegexp);
 
         if (match && demos) {
           const name = match[1];
-          return <Demo key={content} js={demos[name].js} raw={demos[name].raw} />;
+          return (
+            <Demo key={content} js={demos[name].js} raw={demos[name].raw} />
+          );
         }
 
         return <MarkdownElement key={content} text={content} />;
@@ -73,7 +75,10 @@ function MarkdownDocs(props, context) {
 ## API
 
 ${headers.components
-            .map(component => `- [&lt;${component} /&gt;](/api/${kebabCase(component)})`)
+            .map(
+              component =>
+                `- [&lt;${component} /&gt;](/api/${kebabCase(component)})`,
+            )
             .join('\n')}
           `}
         />
@@ -83,18 +88,12 @@ ${headers.components
 }
 
 MarkdownDocs.propTypes = {
-  classes: PropTypes.object.isRequired,
-  demos: PropTypes.object,
+  classes: PropTypes.object.isRequired, // eslint-disable-line
+  demos: PropTypes.object, // eslint-disable-line
   markdown: PropTypes.string.isRequired,
   // You can define the direction location of the markdown file.
   // Otherwise, we try to determine it with an heuristic.
-  sourceLocation: PropTypes.string,
-};
-
-MarkdownDocs.contextTypes = {
-  activePage: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
+  sourceLocation: PropTypes.string, // eslint-disable-line
 };
 
 export default withStyles(styles)(MarkdownDocs);

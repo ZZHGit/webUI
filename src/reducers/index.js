@@ -4,6 +4,7 @@ import runtime from './runtime';
 import intl from './intl';
 import todos from './todo/todos';
 import visibilityFilter from './todo/visibilityFilter';
+import theme from './theme';
 
 export default function createRootReducer({ apolloClient }) {
   return combineReducers({
@@ -13,5 +14,6 @@ export default function createRootReducer({ apolloClient }) {
     intl,
     todos,
     visibilityFilter,
+    theme,
   });
 }

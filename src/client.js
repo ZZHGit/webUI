@@ -28,6 +28,7 @@ import { updateMeta } from './DOMUtils';
 import createApolloClient from './core/createApolloClient';
 import router from './router';
 import { getIntl } from './actions/intl';
+import getContext from './styles/createContext';
 
 const apolloClient = createApolloClient();
 injectTapEventPlugin();
@@ -49,6 +50,7 @@ const store = configureStore(window.App.state, {
   fetch,
   history,
 });
+const styleContext = getContext();
 
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
@@ -70,6 +72,8 @@ const context = {
   fetch,
   // intl instance as it can be get with injectIntl
   intl: store.dispatch(getIntl()),
+  styleContext,
+  history,
 };
 
 const container = document.getElementById('app');

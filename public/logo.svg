@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-197 37 568 543">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-Artboard_1);
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+
+      .cls-10, .cls-11, .cls-12, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
+        stroke: #253137;
+        stroke-width: 5px;
+      }
+
+      .cls-3 {
+        fill: #f88b3e;
+      }
+
+      .cls-4 {
+        fill: #ef4464;
+      }
+
+      .cls-5 {
+        fill: #eb4261;
+      }
+
+      .cls-6 {
+        fill: #fdf239;
+      }
+
+      .cls-7 {
+        fill: #f9ed25;
+      }
+
+      .cls-8 {
+        fill: #2981ff;
+      }
+
+      .cls-9 {
+        fill: #1bb056;
+      }
+
+      .cls-10 {
+        fill: #ff852d;
+      }
+
+      .cls-11 {
+        fill: #10cb5a;
+      }
+
+      .cls-12 {
+        fill: #3177de;
+      }
+    </style>
+    <clipPath id="clip-Artboard_1">
+      <rect x="-197" y="37" width="568" height="543"/>
+    </clipPath>
+  </defs>
+  <g id="Artboard_1" data-name="Artboard – 1" class="cls-1">
+    <line id="Line_4" data-name="Line 4" class="cls-2" y1="146.946" x2="202.254" transform="translate(88.5 160.554)"/>
+    <line id="Line_10" data-name="Line 10" class="cls-2" x1="95" transform="translate(195.5 160.5)"/>
+    <line id="Line_16" data-name="Line 16" class="cls-2" x1="202" y1="147" transform="translate(88.5 307.5)"/>
+    <path id="Path_2" data-name="Path 2" class="cls-3" d="M.5.5H156.877L202.5,147.273,77.638,237.464Z" transform="translate(291.293 158.918) rotate(72)"/>
+    <path id="Path_1" data-name="Path 1" class="cls-4" d="M.5.5H156.877L202.5,147.273,77.638,237.464Z" transform="translate(11 68.236)"/>
+    <path id="Path_3" data-name="Path 3" class="cls-5" d="M23.449.5h0L53.5,90.554H-6.7Z" transform="translate(-12 70)"/>
+    <path id="Path_4" data-name="Path 4" class="cls-6" d="M25.158.5h0L56.913,87.363.5,86.111Z" transform="matrix(-0.819, 0.574, -0.574, -0.819, 309.799, 435.253)"/>
+    <path id="Path_5" data-name="Path 5" class="cls-7" d="M.5.5H156.877L202.5,147.273,77.638,237.464Z" transform="matrix(-0.809, 0.588, -0.588, -0.809, 290.551, 451.816)"/>
+    <path id="Path_6" data-name="Path 6" class="cls-8" d="M22.805.5l-.121.039L52.215,91.425H-6.7Z" transform="translate(-169.586 327.408) rotate(-72)"/>
+    <path id="Path_7" data-name="Path 7" class="cls-9" d="M31.451-2.826h0L57.872,86.5,3.72,84.135,31.451-2.826Z" transform="matrix(-0.819, -0.574, 0.574, -0.819, 39.79, 556.053)"/>
+    <path id="Path_10" data-name="Path 10" class="cls-10" d="M.5.5H91L18.7,54.2h0Z" transform="translate(196 161)"/>
+    <path id="Path_8" data-name="Path 8" class="cls-11" d="M.5.5h154L78.2,237.2-49.3,146.3Z" transform="translate(-67 305)"/>
+    <path id="Path_9" data-name="Path 9" class="cls-12" d="M-3.4.5H151.7l46.7,145.2H-50.9Z" transform="translate(-111.6 159)"/>
+  </g>
+</svg>

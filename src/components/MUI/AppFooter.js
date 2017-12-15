@@ -37,28 +37,26 @@ function AppFooter(props) {
             <Grid item xs={12} sm={6}>
               <ul className={classes.list}>
                 <li className={classes.listItem}>
-                  <Link to="https://github.com/mui-org/material-ui/tree/v1-beta">GitHub</Link>
+                  <Link to="/mui">GitHub</Link>
                 </li>
                 <li className={classes.listItem}>
-                  <Link to="https://twitter.com/MaterialUI">Twitter</Link>
+                  <Link to="/mui">Twitter</Link>
                 </li>
                 <li className={classes.listItem}>
-                  <Link to="https://github.com/mui-org/material-ui/tree/v1-beta/examples">
-                    Examples
-                  </Link>
+                  <Link to="/mui">Examples</Link>
                 </li>
               </ul>
             </Grid>
             <Grid item xs={12} sm={6}>
               <ul className={classes.list}>
                 <li className={classes.listItem}>
-                  <Link to="/discover-more/community">Community</Link>
+                  <Link to="/">Home</Link>
                 </li>
                 <li className={classes.listItem}>
-                  <Link to="/discover-more/roadmap">Roadmap</Link>
+                  <Link to="/about">About</Link>
                 </li>
                 <li className={classes.listItem}>
-                  <Link to="/discover-more/team">Team</Link>
+                  <Link to="/contact">Contact</Link>
                 </li>
               </ul>
             </Grid>

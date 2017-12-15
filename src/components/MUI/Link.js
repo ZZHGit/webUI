@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import { capitalizeFirstLetter } from 'material-ui/utils/helpers';
 import history from '../../history';
+import LocalLink from '../Link';
 
 const styles = theme => ({
   root: {
@@ -64,6 +65,7 @@ class OnClick extends React.Component {
     }
 
     event.preventDefault();
+    console.info(this.props.to);
     history.push(this.props.to);
   };
 
@@ -110,11 +112,11 @@ function Link(props) {
       passHref: true,
     };
     const currentLocation = history.location;
-    console.info('1111111111111111', currentLocation);
-    const active = currentLocation === to;
+    const active = currentLocation.pathname === to;
     children = (
       <OnClick
-        component="a"
+        component={LocalLink}
+        to={to}
         className={classNames(className, {
           [activeClassName]: active && activeClassName,
         })}

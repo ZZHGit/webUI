@@ -130,7 +130,9 @@ if (rootElement) {
       },
     };
 
-    this.codesandboxForm.querySelector('[name="parameters"]').value = compress(codesandboxValue);
+    this.codesandboxForm.querySelector('[name="parameters"]').value = compress(
+      codesandboxValue,
+    );
     this.codesandboxForm.submit();
   };
 
@@ -157,13 +159,23 @@ if (rootElement) {
             </form>
           </div>
         </Tooltip>
-        <Tooltip title={codeOpen ? 'Hide the source' : 'Show the source'} placement="top">
-          <IconButton onClick={this.handleClickCodeOpen} className={classes.codeButton}>
+        <Tooltip
+          title={codeOpen ? 'Hide the source' : 'Show the source'}
+          placement="top"
+        >
+          <IconButton
+            onClick={this.handleClickCodeOpen}
+            className={classes.codeButton}
+          >
             <CodeIcon />
           </IconButton>
         </Tooltip>
         <Collapse in={codeOpen} unmountOnExit>
-          <MarkdownElement dir="ltr" className={classes.code} text={`\`\`\`jsx\n${raw}\n\`\`\``} />
+          <MarkdownElement
+            dir="ltr"
+            className={classes.code}
+            text={`\`\`\`jsx\n${raw}\n\`\`\``}
+          />
         </Collapse>
         <div className={classes.demo}>
           <DemoComponent />
@@ -174,7 +186,7 @@ if (rootElement) {
 }
 
 Demo.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired, // eslint-disable-line
   js: PropTypes.func.isRequired,
   raw: PropTypes.string.isRequired,
 };

@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import compose from 'recompose/compose';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Link from './Link';
+import AppFooter from './AppFooter';
+import withRoot from './withRoot';
 
 const styles = theme => ({
   root: {
@@ -16,7 +19,9 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.primary[500] : theme.palette.primary[800],
+      theme.palette.type === 'light'
+        ? theme.palette.primary[500]
+        : theme.palette.primary[800],
     color: theme.palette.getContrastText(theme.palette.primary[500]),
   },
   content: {
@@ -57,16 +62,22 @@ function PageHome(props) {
     <div className={classes.root}>
       <div className={classes.hero}>
         <div className={classes.content}>
-          <img
-            src="/static/images/material-ui-logo.svg"
-            alt="Material-UI Logo"
-            className={classes.logo}
-          />
+          <img src="logo.svg" alt="Material-UI Logo" className={classes.logo} />
           <div className={classes.text}>
-            <Typography type="display2" component="h1" color="inherit" gutterBottom>
+            <Typography
+              type="display2"
+              component="h1"
+              color="inherit"
+              gutterBottom
+            >
               {'Material-UI'}
             </Typography>
-            <Typography type="headline" component="h2" color="inherit" className={classes.headline}>
+            <Typography
+              type="headline"
+              component="h2"
+              color="inherit"
+              className={classes.headline}
+            >
               {"React components that implement Google's Material Design."}
             </Typography>
             <Button
@@ -74,7 +85,7 @@ function PageHome(props) {
               className={classes.button}
               raised
               prefetch
-              href="/getting-started/installation"
+              href="/mui"
               variant="button"
             >
               {'Get Started'}
@@ -82,6 +93,7 @@ function PageHome(props) {
           </div>
         </div>
       </div>
+      <AppFooter />
     </div>
   );
 }
@@ -90,4 +102,4 @@ PageHome.propTypes = {
   classes: PropTypes.object.isRequired, // eslint-disable-line
 };
 
-export default withStyles(styles)(PageHome);
+export default compose(withRoot, withStyles(styles))(PageHome);
