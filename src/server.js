@@ -307,6 +307,7 @@ app.use((err, req, res, next) => {
       description={err.message}
       styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
       app={{ lang: locale }}
+      muicss=""
     >
       {ReactDOM.renderToString(
         <IntlProvider locale={locale}>

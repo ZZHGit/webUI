@@ -54,7 +54,7 @@ export function setLocale({ locale }) {
         const maxAge = 3650 * 24 * 3600; // 10 years in seconds
         document.cookie = `lang=${locale};path=/;max-age=${maxAge}`;
         history.push(`?lang=${locale}`);
-        window.RSK_ENTRY();
+        // window.RSK_ENTRY();
       }
 
       // return bound intl instance at the end

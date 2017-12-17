@@ -24,15 +24,20 @@ class Link extends React.Component {
     to: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
     onClick: PropTypes.func,
+    onCustomClick: PropTypes.func,
   };
 
   static defaultProps = {
     onClick: null,
+    onCustomClick: null,
   };
 
   handleClick = event => {
     if (this.props.onClick) {
       this.props.onClick(event);
+    }
+    if (this.props.onCustomClick) {
+      this.props.onCustomClick(event);
     }
 
     if (isModifiedEvent(event) || !isLeftClickEvent(event)) {

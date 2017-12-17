@@ -96,7 +96,7 @@ function AppDrawer(props) {
     <div className={classes.nav}>
       <div className={classes.toolbarIe11}>
         <Toolbar className={classes.toolbar}>
-          <Link className={classes.title} to="/">
+          <Link className={classes.title} to="/" onCustomClick={onClose}>
             <Typography type="title" gutterBottom color="inherit">
               Material-UI
             </Typography>
@@ -119,7 +119,6 @@ function AppDrawer(props) {
       {renderNavItems(props, Pages, history.location)}
     </div>
   );
-
   return (
     <div className={className}>
       <Hidden lgUp={!disablePermanent}>

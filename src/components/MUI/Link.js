@@ -29,6 +29,7 @@ const styles = theme => ({
   },
 });
 
+/* 
 function isLeftClickEvent(event) {
   return event.button === 0;
 }
@@ -36,7 +37,6 @@ function isLeftClickEvent(event) {
 function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
-
 class OnClick extends React.Component {
   static propTypes = {
     to: PropTypes.string.isRequired,
@@ -65,7 +65,6 @@ class OnClick extends React.Component {
     }
 
     event.preventDefault();
-    console.info(this.props.to);
     history.push(this.props.to);
   };
 
@@ -74,7 +73,7 @@ class OnClick extends React.Component {
     return <ComponentProp {...props} onClick={this.handleClick} />;
   }
 }
-
+*/
 function Link(props) {
   const {
     to,
@@ -105,26 +104,23 @@ function Link(props) {
       className,
     };
   } else if (to) {
-    ComponentRoot = 'a';
+    ComponentRoot = 'div';
     RootProps = {
       to,
       prefetch,
-      passHref: true,
     };
     const currentLocation = history.location;
     const active = currentLocation.pathname === to;
     children = (
-      <OnClick
-        component={LocalLink}
+      <LocalLink
         to={to}
         className={classNames(className, {
           [activeClassName]: active && activeClassName,
         })}
-        onCustomClick={onClick}
         {...other}
       >
         {children}
-      </OnClick>
+      </LocalLink>
     );
   } else {
     ComponentRoot = 'a';

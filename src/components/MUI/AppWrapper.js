@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { MuiThemeProvider } from 'material-ui/styles';
 import JssProvider from 'react-jss/lib/JssProvider';
-import { getTheme } from '../../styles/createContext';
+import getctx, { getTheme } from '../../styles/createContext';
 
 import AppFrame from './AppFrame';
 import { lightTheme, darkTheme, setPrismTheme } from './utils/prism';
@@ -34,7 +34,7 @@ class AppWrapper extends React.Component {
   };
 
   componentWillMount() {
-    this.styleContext = this.context.styleContext;
+    this.styleContext = getctx();
   }
 
   componentDidMount() {
@@ -64,7 +64,6 @@ class AppWrapper extends React.Component {
       nextProps.uiTheme.direction !== this.props.uiTheme.direction
     ) {
       this.styleContext.theme = getTheme(nextProps.uiTheme);
-
       if (nextProps.uiTheme.paletteType === 'light') {
         setPrismTheme(lightTheme);
       } else {
@@ -81,10 +80,10 @@ class AppWrapper extends React.Component {
 
   render() {
     const { children } = this.props;
-    const disablePermanent = this.context.history.pathname === '/';
+    const disablePermanent = this.context.history.location.pathname === '/';
     return (
       <JssProvider
-        registry={this.styleContext.sheetsRegistry}
+        registry={this.context.styleContext.sheetsRegistry}
         jss={this.styleContext.jss}
         generateClassName={this.styleContext.generateClassName}
       >

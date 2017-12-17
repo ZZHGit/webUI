@@ -129,7 +129,9 @@ async function onLocationChange(location, action) {
     // React will attempt to attach event listeners to the existing markup.
     const renderReactApp = isInitialRender ? ReactDOM.hydrate : ReactDOM.render;
     appInstance = renderReactApp(
-      <App context={context}>{route.component}</App>,
+      <App context={context} store={store}>
+        {route.component}
+      </App>,
       container,
       () => {
         if (isInitialRender) {

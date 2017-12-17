@@ -46,6 +46,9 @@ class Navigation extends React.Component {
   render() {
     return (
       <div className={s.root} role="navigation">
+        <Link className={s.link} to="/mui">
+          MUI
+        </Link>
         <Link className={s.link} to="/about">
           <FormattedMessage {...messages.about} />
         </Link>

@@ -13,13 +13,11 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Admin.css';
 
 class Admin extends React.Component {
-  static contextTypes = { fetch: PropTypes.func.isRequired };
   static propTypes = {
     title: PropTypes.string.isRequired,
   };
 
   render() {
-    console.info('4444444444', this.context.fetch);
     return (
       <div className={s.root}>
         <div className={s.container}>

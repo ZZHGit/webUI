@@ -8,24 +8,32 @@
  */
 
 import React from 'react';
+// import Home from './Home';
 import Home from '../../components/MUI/index';
+// import Home from '../../components/MUI/TemporaryDrawer';
 
-/*
-  const resp = await fetch('/graphql', {
+// import Layout from '../../components/Layout';
+
+async function action() {
+  /* const resp = await fetch('/graphql', {
     body: JSON.stringify({
       query: '{news{title,link,content}}',
     }),
   });
   const { data } = await resp.json();
-  if (!data || !data.news) throw new Error('Failed to load the news feed.');
-*/
-
-async function action() {
+  if (!data || !data.news) throw new Error('Failed to load the news feed.'); */
   return {
     chunks: ['home'],
-    title: 'Home',
+    title: 'React Starter Kit',
     component: <Home />,
   };
 }
 
+/*
+(
+      <Layout>
+        <Home news={data.news} />
+      </Layout>
+    ),
+*/
 export default action;
