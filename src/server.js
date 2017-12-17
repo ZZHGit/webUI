@@ -10,7 +10,6 @@
 import path from 'path';
 import Promise from 'bluebird';
 import express from 'express';
-import { JssProvider } from 'jss';
 import cookieParser from 'cookie-parser';
 import requestLanguage from 'express-request-language';
 import bodyParser from 'body-parser';
@@ -24,7 +23,7 @@ import { getDataFromTree } from 'react-apollo';
 import PrettyError from 'pretty-error';
 import { IntlProvider } from 'react-intl';
 import CleanCSS from 'clean-css';
-
+import JssProvider from 'react-jss/lib/JssProvider';
 import './serverIntlPolyfill';
 import createApolloClient from './core/createApolloClient';
 import App from './components/App';
@@ -230,6 +229,7 @@ app.get('*', async (req, res, next) => {
       // intl instance as it can be get with injectIntl
       intl,
       styleContext,
+      history: null,
     };
 
     const route = await router.resolve({
@@ -245,13 +245,17 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
+    function Root(props) {
+      return <ComponentRoot {...props}>{children}</ComponentRoot>;
+    }
+    let f = MyComponent => props => (
+      <MyComponent  {...props} />
+    );
 
-    const rootComponent = () => (
-      <JssProvider registry={styleContext.sheetsRegistry}>
-        <App context={context} store={store}>
-          {route.component}
-        </App>
-      </JssProvider>
+    const rootComponent = (
+      <App context={context} store={store}>
+        <MyComponent sheetsRegistry={styleContext.sheetsRegistry} b/>
+      </App>
     );
 
     // 可通过getDataFromTree函数，执行查询后给出一个Promise，完成Apollo客户端实例的初始化
@@ -264,7 +268,6 @@ app.get('*', async (req, res, next) => {
     if (process.env.NODE_ENV === 'production') {
       data.muicss = cleanCSS.minify(data.muicss).styles;
     }
-    console.info(data.muicss);
     data.scripts = [assets.vendor.js];
     if (route.chunks) {
       data.scripts.push(...route.chunks.map(chunk => assets[chunk].js));
@@ -274,7 +277,7 @@ app.get('*', async (req, res, next) => {
     // Furthermore invoked actions will be ignored, client will not receive them!
     if (__DEV__) {
       // eslint-disable-next-line no-console
-      console.log('Serializing store......');
+      console.log('Serializing store...');
     }
     data.app = {
       apiUrl: config.api.clientUrl,

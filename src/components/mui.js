@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
 import Dialog, {
@@ -46,6 +47,12 @@ OverridesClassNames.propTypes = {
 };
 const Btn = withStyles(style)(OverridesClassNames);
 
+const StyledButton = styled(Button)`
+  background-color: grey;
+  color: blue;
+  width: 240px;
+`;
+
 class Index extends Component {
   state = {
     open: false,
@@ -77,6 +84,9 @@ class Index extends Component {
             </Button>
           </DialogActions>
         </Dialog>
+        <StyledButton color="accent" raised>
+          tyled Components
+        </StyledButton>
         <Typography type="display1" gutterBottom>
           Material-UI
         </Typography>

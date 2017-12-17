@@ -15,9 +15,10 @@ function withRoot(BaseComponent) {
     };
 
     render() {
+      const { sheetsRegistry, ...other } = this.props;
       return (
-        <AppWrapper>
-          <PureBaseComponent {...this.props} />
+        <AppWrapper sheetsRegistry={sheetsRegistry}>
+          <PureBaseComponent initialProps={other} />
         </AppWrapper>
       );
     }

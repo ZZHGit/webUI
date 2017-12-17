@@ -43,7 +43,9 @@ const styles = theme => ({
 function reduceChildRoutes(props, activePage, items, childPage, index) {
   if (childPage.children && childPage.children.length > 1) {
     const openImmediately =
-      activePage.pathname.indexOf(childPage.pathname) !== -1 || false;
+      (process.env.BROWSER &&
+        activePage.pathname.indexOf(childPage.path) !== -1) ||
+      false;
     items.push(
       <AppDrawerNavItem
         key={index}

@@ -25,6 +25,7 @@ class AppWrapper extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     uiTheme: PropTypes.object.isRequired, // eslint-disable-line
+    sheetsRegistry: PropTypes.object.isRequired, // eslint-disable-line
   };
 
   static contextTypes = {
@@ -79,11 +80,13 @@ class AppWrapper extends React.Component {
   styleContext = null;
 
   render() {
-    const { children } = this.props;
-    const disablePermanent = this.context.history.location.pathname === '/';
+    const { children, sheetsRegistry } = this.props;
+    const disablePermanent =
+      this.context.history != null &&
+      this.context.history.location.pathname === '/';
     return (
       <JssProvider
-        registry={this.context.styleContext.sheetsRegistry}
+        registry={sheetsRegistry}
         jss={this.styleContext.jss}
         generateClassName={this.styleContext.generateClassName}
       >

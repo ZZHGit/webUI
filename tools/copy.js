@@ -35,6 +35,8 @@ async function copy() {
         2,
       ),
     ),
+    copyDir('node_modules/bootstrap/dist/css', 'build/public/css'),
+    copyDir('node_modules/bootstrap/dist/fonts', 'build/public/fonts'),
     copyFile('LICENSE.txt', 'build/LICENSE.txt'),
     copyFile('yarn.lock', 'build/yarn.lock'),
     copyDir('public', 'build/public'),

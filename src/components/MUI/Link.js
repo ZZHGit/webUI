@@ -109,8 +109,7 @@ function Link(props) {
       to,
       prefetch,
     };
-    const currentLocation = history.location;
-    const active = currentLocation.pathname === to;
+    const active = process.env.BROWSER && history.location.pathname === to;
     children = (
       <LocalLink
         to={to}
