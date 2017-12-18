@@ -10,9 +10,6 @@
 import React from 'react';
 // import Home from './Home';
 import Home from '../../components/MUI/index';
-// import Home from '../../components/MUI/TemporaryDrawer';
-
-// import Layout from '../../components/Layout';
 
 async function action({ styleContext }) {
   /* const resp = await fetch('/graphql', {
@@ -29,11 +26,4 @@ async function action({ styleContext }) {
   };
 }
 
-/*
-(
-      <Layout>
-        <Home news={data.news} />
-      </Layout>
-    ),
-*/
 export default action;

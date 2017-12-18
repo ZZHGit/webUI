@@ -46,7 +46,7 @@ class AppWrapper extends React.Component {
       if (jssStyles && jssStyles.parentNode) {
         jssStyles.parentNode.removeChild(jssStyles);
       }
-    }, 3000);
+    }, 1000);
 
     if (this.props.uiTheme.paletteType === 'light') {
       setPrismTheme(lightTheme);

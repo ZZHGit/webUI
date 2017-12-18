@@ -4,7 +4,7 @@ import compose from 'recompose/compose';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
-import Link from './Link';
+import Link from '../Link';
 import AppFooter from './AppFooter';
 import withRoot from './withRoot';
 

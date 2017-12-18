@@ -9,10 +9,9 @@ import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Hidden from 'material-ui/Hidden';
 import AppDrawerNavItem from './AppDrawerNavItem';
-import Link from './Link';
+import Link from '../Link';
 import { pageToTitle } from './utils/helpers';
 import routes from '../../routes';
-import history from '../../history';
 
 const styles = theme => ({
   paper: {
@@ -43,8 +42,7 @@ const styles = theme => ({
 function reduceChildRoutes(props, activePage, items, childPage, index) {
   if (childPage.children && childPage.children.length > 1) {
     const openImmediately =
-      (process.env.BROWSER &&
-        activePage.pathname.indexOf(childPage.path) !== -1) ||
+      (process.env.BROWSER && activePage.path.indexOf(childPage.path) !== -1) ||
       false;
     items.push(
       <AppDrawerNavItem
@@ -118,7 +116,7 @@ function AppDrawer(props) {
           <Divider absolute />
         </Toolbar>
       </div>
-      {renderNavItems(props, Pages, history.location)}
+      {renderNavItems(props, Pages, { path: '/' })}
     </div>
   );
   return (

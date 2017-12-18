@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
-import Link from './Link';
+import Link from '../Link';
 
 const styleSheet = theme => ({
   root: {

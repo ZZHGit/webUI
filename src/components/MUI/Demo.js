@@ -12,7 +12,7 @@ import Dialog, {
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import compose from 'recompose/compose';
-import withRoot from './Mui/withRoot';
+import withRoot from './withRoot';
 
 const styles = {
   root: {

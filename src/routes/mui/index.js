@@ -8,8 +8,7 @@
  */
 
 import React from 'react';
-import AppBar from '../../components/MUI/app-bar';
-import Mui from '../../components/mui';
+import Mui from '../../components/MUI/Demo';
 
 function action({ styleContext }) {
   return {
