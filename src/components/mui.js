@@ -11,6 +11,8 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
+import compose from 'recompose/compose';
+import withRoot from './Mui/withRoot';
 
 const styles = {
   root: {
@@ -105,4 +107,4 @@ Index.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Index);
+export default compose(withRoot, withStyles(styles))(Index);

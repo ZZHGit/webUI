@@ -24,6 +24,7 @@ import PrettyError from 'pretty-error';
 import { IntlProvider } from 'react-intl';
 import CleanCSS from 'clean-css';
 import JssProvider from 'react-jss/lib/JssProvider';
+import { MuiThemeProvider } from 'material-ui/styles';
 import './serverIntlPolyfill';
 import createApolloClient from './core/createApolloClient';
 import App from './components/App';
@@ -245,24 +246,28 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    function Root(props) {
-      return <ComponentRoot {...props}>{children}</ComponentRoot>;
-    }
-    let f = MyComponent => props => (
-      <MyComponent  {...props} />
-    );
 
-    const rootComponent = (
-      <App context={context} store={store}>
-        <MyComponent sheetsRegistry={styleContext.sheetsRegistry} b/>
-      </App>
+    const RootComponent = (
+      <JssProvider
+        registry={styleContext.sheetsRegistry}
+        jss={styleContext.jss}
+        generateClassName={styleContext.generateClassName}
+      >
+        <MuiThemeProvider
+          theme={styleContext.theme}
+          sheetsManager={styleContext.sheetsManager}
+        >
+          <App context={context} store={store}>
+            {route.component}
+          </App>
+        </MuiThemeProvider>
+      </JssProvider>
     );
-
+    data.children = await ReactDOM.renderToString(RootComponent);
     // 可通过getDataFromTree函数，执行查询后给出一个Promise，完成Apollo客户端实例的初始化
-    await getDataFromTree(rootComponent);
+    await getDataFromTree(RootComponent);
     // this is here because of Apollo redux APOLLO_QUERY_STOP action
     await Promise.delay(0);
-    data.children = await ReactDOM.renderToString(rootComponent);
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
     data.muicss = styleContext.sheetsRegistry.toString();
     if (process.env.NODE_ENV === 'production') {

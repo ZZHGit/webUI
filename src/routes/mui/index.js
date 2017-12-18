@@ -8,13 +8,14 @@
  */
 
 import React from 'react';
-import AppBar from './AppBar';
+import AppBar from '../../components/MUI/app-bar';
+import Mui from '../../components/mui';
 
-function action() {
+function action({ styleContext }) {
   return {
     chunks: ['mui'],
     title: 'app-bar-api',
-    component: <AppBar />,
+    component: <Mui sheetsRegistry={styleContext.sheetsRegistry} />,
   };
 }
 
