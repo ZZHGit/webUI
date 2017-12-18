@@ -15,7 +15,7 @@ function run() {
 
 if (!global.Intl) {
   // You can show loading banner here
-
+console.info('111111111111111111111');
   require.ensure(
     [
       // Add all large polyfills here

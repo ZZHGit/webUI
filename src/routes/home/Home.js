@@ -11,23 +11,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedRelative } from 'react-intl';
 import { graphql, compose } from 'react-apollo';
-import Button from 'material-ui/Button';
-import Icon from 'material-ui/Icon';
-import Typography from 'material-ui/Typography';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import newsQuery from './news.graphql';
 import s from './Home.css';
-import Mui from '../../components/mui';
-
-const style = {
-  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-  borderRadius: 3,
-  border: 0,
-  color: 'white',
-  height: 48,
-  padding: '0 30px',
-  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .30)',
-};
+import Page from '../../components/Mui/Pages';
 
 class Home extends React.Component {
   static propTypes = {
@@ -48,20 +35,8 @@ class Home extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <Button raised style={style}>
-            hellos
-          </Button>
-          <Button raised>Hello World</Button>
-          <Mui />
           <h1>React.js News</h1>
-          <div>
-            <Icon color="primary" style={{ fontSize: 30 }}>
-              add_circle
-            </Icon>
-          </div>
-          <Typography type="display4" gutterBottom>
-            Display 4
-          </Typography>
+          <Page />
           {loading
             ? 'Loading...'
             : news.map(item => (

@@ -17,7 +17,6 @@ const routes = {
   children: [
     {
       path: '',
-      title: 'home',
       load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {
@@ -52,7 +51,6 @@ const routes = {
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
     {
       path: '(.*)',
-      title: 'Not found',
       load: () => import(/* webpackChunkName: 'not-found' */ './not-found'),
     },
   ],

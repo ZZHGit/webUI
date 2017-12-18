@@ -6,7 +6,8 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
-
+import 'event-source-polyfill';
+import 'eventsource-polyfill';
 import 'whatwg-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -31,6 +32,7 @@ import { getIntl } from './actions/intl';
 import getContext from './styles/createContext';
 
 const apolloClient = createApolloClient();
+console.info('222222222222222222');
 injectTapEventPlugin();
 
 /* @intl-code-template addLocaleData(${lang}); */
@@ -51,7 +53,6 @@ const store = configureStore(window.App.state, {
   history,
 });
 const styleContext = getContext();
-
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
 const context = {

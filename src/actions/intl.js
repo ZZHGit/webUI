@@ -55,6 +55,7 @@ export function setLocale({ locale }) {
         document.cookie = `lang=${locale};path=/;max-age=${maxAge}`;
         history.push(`?lang=${locale}`);
         window.RSK_ENTRY();
+        console.info('33333333333333');
       }
 
       // return bound intl instance at the end

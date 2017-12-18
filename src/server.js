@@ -230,7 +230,7 @@ app.get('*', async (req, res, next) => {
       // intl instance as it can be get with injectIntl
       intl,
       styleContext,
-      history: null,
+      history: {},
     };
 
     const route = await router.resolve({
@@ -248,26 +248,16 @@ app.get('*', async (req, res, next) => {
     const data = { ...route };
 
     const RootComponent = (
-      <JssProvider
-        registry={styleContext.sheetsRegistry}
-        jss={styleContext.jss}
-        generateClassName={styleContext.generateClassName}
-      >
-        <MuiThemeProvider
-          theme={styleContext.theme}
-          sheetsManager={styleContext.sheetsManager}
-        >
-          <App context={context} store={store}>
-            {route.component}
-          </App>
-        </MuiThemeProvider>
-      </JssProvider>
+      <App context={context} store={store}>
+        {route.component}
+      </App>
     );
-    data.children = await ReactDOM.renderToString(RootComponent);
+
     // 可通过getDataFromTree函数，执行查询后给出一个Promise，完成Apollo客户端实例的初始化
     await getDataFromTree(RootComponent);
     // this is here because of Apollo redux APOLLO_QUERY_STOP action
     await Promise.delay(0);
+    data.children = await ReactDOM.renderToString(RootComponent);
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
     data.muicss = styleContext.sheetsRegistry.toString();
     if (process.env.NODE_ENV === 'production') {

@@ -82,11 +82,7 @@ class Html extends React.Component {
           <script
             dangerouslySetInnerHTML={{ __html: `window.App=${serialize(app)}` }}
           />
-          {scripts.map(script => <script key={script} src={script} />)}
-          <script
-            async
-            src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"
-          />
+          {scripts.map(script => <script key={script} type="text/javascript" src={script} />)}
           {config.analytics.googleTrackingId && (
             <script
               dangerouslySetInnerHTML={{

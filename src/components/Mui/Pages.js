@@ -1,6 +1,4 @@
-/* eslint-disable */
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
 import Dialog, {
@@ -11,51 +9,16 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
-import compose from 'recompose/compose';
-import withRoot from './withRoot';
+import withRoot from './withRoot1';
 
 const styles = {
   root: {
     textAlign: 'center',
-    paddingTop: 100,
+    paddingTop: 200,
   },
 };
 
-const style = {
-  button: {
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    borderRadius: 3,
-    border: 0,
-    color: 'white',
-    height: 48,
-    padding: '0 30px',
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .30)',
-  },
-};
-
-class OverridesClassNames extends React.Component {
-  render() {
-    return (
-      <Button className={this.props.classes.button}>
-        {this.props.children ? this.props.children : 'class names'}
-      </Button>
-    );
-  }
-}
-
-OverridesClassNames.propTypes = {
-  children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
-};
-const Btn = withStyles(style)(OverridesClassNames);
-
-const StyledButton = styled(Button)`
-  background-color: grey;
-  color: blue;
-  width: 240px;
-`;
-
-class Index extends Component {
+class Index extends React.Component {
   state = {
     open: false,
   };
@@ -86,9 +49,6 @@ class Index extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-        <StyledButton color="accent" raised>
-          tyled Components
-        </StyledButton>
         <Typography type="display1" gutterBottom>
           Material-UI
         </Typography>
@@ -107,4 +67,4 @@ Index.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withRoot, withStyles(styles))(Index);
+export default withStyles(styles)(Index);

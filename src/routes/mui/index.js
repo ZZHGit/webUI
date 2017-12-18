@@ -8,13 +8,14 @@
  */
 
 import React from 'react';
-import Mui from '../../components/MUI/Demo';
+// import Mui from '../../components/Mui/Demo';
+import Page from '../../components/Mui/Pages';
 
 function action({ styleContext }) {
   return {
     chunks: ['mui'],
     title: 'app-bar-api',
-    component: <Mui sheetsRegistry={styleContext.sheetsRegistry} />,
+    component: <Page sheetsRegistry={styleContext.sheetsRegistry} />,
   };
 }
 
