@@ -2,8 +2,9 @@
 /* eslint-disable no-underscore-dangle */
 import { create, SheetsRegistry } from 'jss';
 import preset from 'jss-preset-default';
+import rtl from 'jss-rtl';
 import { createMuiTheme } from 'material-ui/styles';
-import { blue, green } from 'material-ui/colors';
+import { blue, pink } from 'material-ui/colors';
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
 
 export function getTheme(theme) {
@@ -11,19 +12,21 @@ export function getTheme(theme) {
     direction: theme.direction,
     palette: {
       primary: blue,
-      secondary: green,
+      secondary: pink,
       type: theme.paletteType,
     },
   });
 }
+
 const theme = getTheme({
   direction: 'ltr',
-  paletteType: 'light',
+  paletteType: 'dark',
 });
 
 // Configure JSS
-const jss = create(preset());
+const jss = create({ plugins: [...preset().plugins, rtl()] });
 jss.options.createGenerateClassName = createGenerateClassName;
+jss.options.insertionPoint = 'insertion-point-jss';
 
 export const sheetsManager = new Map();
 
@@ -47,9 +50,8 @@ export default function getContext() {
   }
 
   // Reuse context on the client-side
-  if (!window.App.stlye) {
-    window.App.stlye = createContext();
+  if (!global.__INIT_MATERIAL_UI__) {
+    global.__INIT_MATERIAL_UI__ = createContext();
   }
-
-  return window.App.stlye;
+  return global.__INIT_MATERIAL_UI__;
 }

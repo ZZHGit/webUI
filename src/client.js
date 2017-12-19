@@ -6,8 +6,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
-import 'event-source-polyfill';
-import 'eventsource-polyfill';
 import 'whatwg-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -32,9 +30,19 @@ import { getIntl } from './actions/intl';
 import getContext from './styles/createContext';
 
 const apolloClient = createApolloClient();
-console.info('222222222222222222');
 injectTapEventPlugin();
 
+// Inject the insertion-point-jss after docssearch
+/* eslint-disable no-underscore-dangle */
+if (process.browser && !global.__INSERTION_POINT__) {
+  global.__INSERTION_POINT__ = true;
+  const styleNode = document.createComment('insertion-point-jss');
+  const docsearchStylesSheet = document.querySelector('#insertion-point-jss');
+
+  if (document.head && docsearchStylesSheet) {
+    document.head.insertBefore(styleNode, docsearchStylesSheet.nextSibling);
+  }
+}
 /* @intl-code-template addLocaleData(${lang}); */
 addLocaleData(en);
 addLocaleData(zh);
@@ -179,6 +187,7 @@ async function onLocationChange(location, action) {
         }
       },
     );
+    console.info(context.styleContext.sheetsRegistry);
   } catch (error) {
     if (__DEV__) {
       throw error;

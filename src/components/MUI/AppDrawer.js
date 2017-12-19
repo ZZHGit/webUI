@@ -55,7 +55,7 @@ function reduceChildRoutes(props, activePage, items, childPage, index) {
         }
       </AppDrawerNavItem>,
     );
-  } else if (childPage.title !== false) {
+  } else if (childPage.path) {
     // eslint-disable-next-line
     childPage =
       childPage.children && childPage.children.length === 1

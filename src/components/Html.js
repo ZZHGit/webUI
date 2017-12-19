@@ -76,6 +76,7 @@ class Html extends React.Component {
             id="jss-server-side"
             dangerouslySetInnerHTML={{ __html: muicss }}
           />
+          <style id="insertion-point-jss" />
         </head>
         <body>
           <div id="app" dangerouslySetInnerHTML={{ __html: children }} />

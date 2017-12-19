@@ -9,7 +9,31 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
 import history from '../../history';
+
+const styles = theme => ({
+  root: {
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
+  variantDefault: {
+    color: 'inherit',
+  },
+  variantPrimary: {
+    color: theme.palette.primary[500],
+  },
+  variantAccent: {
+    color: theme.palette.secondary.A400,
+  },
+  variantButton: {
+    '&:hover': {
+      textDecoration: 'inherit',
+    },
+  },
+});
 
 function isLeftClickEvent(event) {
   return event.button === 0;
@@ -73,4 +97,4 @@ class Link extends React.Component {
   }
 }
 
-export default Link;
+export default withStyles(styles)(Link);

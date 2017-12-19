@@ -9,7 +9,7 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
-import withRoot from './withRoot1';
+import withRoot from './withRoot';
 
 const styles = {
   root: {
@@ -64,7 +64,7 @@ class Index extends React.Component {
 }
 
 Index.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired, // eslint-disable-line
 };
 
-export default withStyles(styles)(Index);
+export default withRoot(withStyles(styles)(Index));
