@@ -109,7 +109,7 @@ class NotFound extends React.Component {
     });
 
     const normalizedData = normalize(originalData, article);
-    console.info(normalizedData);
+    // console.info(normalizedData);
     return this;
   }
 
@@ -120,13 +120,13 @@ class NotFound extends React.Component {
     // immutable test
     const map1 = Map({ a: 1, b: 2, c: 3 });
     const map2 = map1.set('b', 50);
-    console.info(`${map1.get('b')} vs. ${map2.get('b')}`); // 2 vs. 50
+    // console.info(`${map1.get('b')} vs. ${map2.get('b')}`); // 2 vs. 50
 
     const data = Immutable.fromJS({ a: { b: { c: 1 } } });
     // 让 cursor 指向 { c: 1 }
     let cursor = Cursor.from(data, ['a', 'b'], newData => {
       // 当 cursor 或其子 cursor 执行 update 时调用
-      console.info(newData);
+      // console.info(newData);
     });
     cursor.get('c'); // 1
     cursor = cursor.update('c', x => x + 1);

@@ -1,7 +1,8 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 /* eslint-disable no-underscore-dangle */
-import { create, SheetsRegistry } from 'jss';
-import preset from 'jss-preset-default';
+import { SheetsRegistry } from 'react-jss/lib/jss';
+import { create } from 'jss';
+import { preset } from 'material-ui/styles/withStyles';
 import rtl from 'jss-rtl';
 import { createMuiTheme } from 'material-ui/styles';
 import { blue, pink } from 'material-ui/colors';
@@ -20,7 +21,7 @@ export function getTheme(theme) {
 
 const theme = getTheme({
   direction: 'ltr',
-  paletteType: 'dark',
+  paletteType: 'light',
 });
 
 // Configure JSS

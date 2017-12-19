@@ -102,4 +102,5 @@ PageHome.propTypes = {
   classes: PropTypes.object.isRequired, // eslint-disable-line
 };
 
+//export default withStyles(styles)(PageHome);
 export default compose(withRoot, withStyles(styles))(PageHome);

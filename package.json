@@ -26,7 +26,7 @@
     "not ie < 9"
   ],
   "dependencies": {
-    "@babel/polyfill": "^7.0.0-beta.35",
+    "@babel/polyfill": "7.0.0-beta.32",
     "apollo-client": "^1.7.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",

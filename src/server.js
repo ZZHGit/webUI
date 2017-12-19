@@ -257,7 +257,20 @@ app.get('*', async (req, res, next) => {
     await getDataFromTree(RootComponent);
     // this is here because of Apollo redux APOLLO_QUERY_STOP action
     await Promise.delay(0);
-    data.children = await ReactDOM.renderToString(RootComponent);
+    data.children = await ReactDOM.renderToString(
+      <JssProvider
+        registry={styleContext.sheetsRegistry}
+        jss={styleContext.jss}
+        generateClassName={styleContext.generateClassName}
+      >
+        <MuiThemeProvider
+          theme={styleContext.theme}
+          sheetsManager={styleContext.sheetsManager}
+        >
+          {RootComponent}
+        </MuiThemeProvider>
+      </JssProvider>,
+    );
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
     data.muicss = styleContext.sheetsRegistry.toString();
     if (process.env.NODE_ENV === 'production') {

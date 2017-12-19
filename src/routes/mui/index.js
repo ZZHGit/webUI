@@ -15,7 +15,7 @@ function action({ styleContext }) {
   return {
     chunks: ['mui'],
     title: 'app-bar-api',
-    component: <Page sheetsRegistry={styleContext.sheetsRegistry} />,
+    component: <Page />,
   };
 }
 

@@ -187,7 +187,6 @@ async function onLocationChange(location, action) {
         }
       },
     );
-    console.info(context.styleContext.sheetsRegistry);
   } catch (error) {
     if (__DEV__) {
       throw error;

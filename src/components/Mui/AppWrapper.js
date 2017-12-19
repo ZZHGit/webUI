@@ -46,7 +46,7 @@ class AppWrapper extends React.Component {
       if (jssStyles && jssStyles.parentNode) {
         jssStyles.parentNode.removeChild(jssStyles);
       }
-    }, 3000);
+    }, 5000);
 
     if (this.props.uiTheme.paletteType === 'light') {
       setPrismTheme(lightTheme);
@@ -81,11 +81,10 @@ class AppWrapper extends React.Component {
 
   render() {
     const { children, sheetsRegistry } = this.props;
-    console.info('appwrapper',sheetsRegistry);
     const disablePermanent = true;
     return (
       <JssProvider
-        registry={sheetsRegistry}
+        registry={this.styleContext.sheetsRegistry}
         jss={this.styleContext.jss}
         generateClassName={this.styleContext.generateClassName}
       >
