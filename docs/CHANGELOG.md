@@ -1,64 +1,32 @@
-## Change Log
+# Change Log
 
-### [v0.0.1]
-
-###### _Sept 19, 2017_
-
-```
-### [v0.0.1]
-###### _Sept 19, 2017_
-
-摘要
-
-##### 重要修改 (Breaking Changes)
-- [选型] Choose **React Starter Kit** for new project.
-- [标签] 简单说明(#issue).
-
-##### 文档修改 (Docs)
-- [Docs] 完善 CHANGELOG.
-
-##### 其他
-```
-
-## React Starter Kit Change Log
+## WebUI Change Log
 
 All notable changes to this project will be documented in this file.
 
 ### [Unreleased][unreleased]
 
-* Split the `App` component into `App` setting context variables and `Layout`
-  setting general look and feel of the app (BREAKING CHANGE)
-* Upgrade `history` npm module to v4.x, update `Link` component (BREAKING
-  CHANGE)
-* Remove `core/createHistory.js` in favor of initializing a new history instance
-  inside `server.js` and `client.js` (BREAKING CHANGE)
-* Remove Jade dependency in favor of React-based templates:
-  `src/views/index.jade => src/components/Html` (BREAKING CHANGE)
-  [#711](https://github.com/kriasoft/react-starter-kit/pull/711)
-* Update `isomorphic-style-loader` to `v1.0.0`, it adds comparability with
-  ES2015+ decorators. Code such as `export default withStyles(MyComponent,
-  style1, style2)` must be replaced with `export default withStyles(style1,
-  style2)(MyComponent)` (BREAKING CHANGE).
-* Replace Jest with Mocha, Chai, Sinon. Unit test files must be renamed from
-  `MyComponent/__test__/MyComponent-test.js` to
-  `MyComponent/MyComponent.test.js` (BREAKING CHANGE).
-* Remove `actions`, `stores` folders since there is no Flux library included
-  into the kit
-* Rename `server` variable in `server.js` to `app`
-* Integrate [Sequelize](http://docs.sequelizejs.com/) to make the project
-  compatible with different types of databases
-* Rename `onSetTitle`, `onSetMeta` context variables to `setTitle`, `setMeta`
-* Move `Content` component to `src/routes/content`
-* Move `ErrorPage` component to `src/routes/error`
-* Move the list of top-level routes to `src/routes/index`
-* Update routing to use `universal-router` library
-* Move Babel, ESLint and JSCS configurations to `package.json`
-  [#497](https://github.com/kriasoft/react-starter-kit/pull/497)
-* Convert `Feedback`, `Footer`, `Header`, and `Navigation` to functional
-  stateless components
-* Move page / screen components into the `src/routes` folder along with the
-  routing information for them (BREAKING CHANGE).
-  [6553936](https://github.com/kriasoft/react-starter-kit/commit/6553936e693e24a8ac6178f4962af15e0ea87dfd)
+Comming...
+
+### [v0.0.1]
+
+摘要: 搭建基于 RSK 的项目脚手架，reselect、material-ui、immutable、
+redux-orm 等库的集成测试完善。
+
+##### _Dec 20, 2017_
+
+#### 重要修改 (Breaking Changes)
+
+* [选型] Choose **React Starter Kit** for new project.
+* [完善] IE 调试支持，添加 event-source-polyfill
+* [记录] material-next 服务端渲染，每次请求服务端需要重新创建 theme
+* [标签] 简单说明(#issue).
+
+#### 文档修改 (Docs)
+
+* [Docs] 完善 CHANGELOG.
+
+##### 其他
 
 ### [v0.5.1]
 
@@ -97,18 +65,6 @@ All notable changes to this project will be documented in this file.
 * Update build automation scripts to use plain functions
 * Add support of `--release` and `--verbose` flags to build scripts
 * Add `CHANGELOG.md` file with a list of notable changes to this project
-
-### [v0.4.1]
-
-> 2015-10-04
-
-* Replace React Hot Loader (deprecated) with React Transform
-* Replace `index.html` template with `Html` (shell) React component
-* Update the deployment script (`tools/deploy.js`), add Git-based deployment
-  example
-* Update ESLint and JSCS settings to use AirBnb JavaScript style guide
-* Update `docs/how-to-configure-text-editors.md` to cover Atom editor
-* Update NPM production and dev dependencies to use the latest versions
 
 [unreleased]: https://github.com/kriasoft/react-starter-kit/compare/v0.5.1...HEAD
 [v0.5.1]: https://github.com/kriasoft/react-starter-kit/compare/v0.5.0...v0.5.1

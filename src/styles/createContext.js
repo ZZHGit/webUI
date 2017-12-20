@@ -19,26 +19,24 @@ export function getTheme(theme) {
   });
 }
 
-const theme = getTheme({
-  direction: 'ltr',
-  paletteType: 'light',
-});
-
 // Configure JSS
 const jss = create({ plugins: [...preset().plugins, rtl()] });
 jss.options.createGenerateClassName = createGenerateClassName;
 jss.options.insertionPoint = 'insertion-point-jss';
 
 export const sheetsManager = new Map();
-
 export function createContext() {
+  const sheetsRegistry = new SheetsRegistry();
   return {
     jss,
-    theme,
+    theme: getTheme({
+      direction: 'ltr',
+      paletteType: 'light',
+    }),
     // This is needed in order to deduplicate the injection of CSS in the page.
     sheetsManager,
     // This is needed in order to inject the critical CSS.
-    sheetsRegistry: new SheetsRegistry(),
+    sheetsRegistry,
     generateClassName: jss.options.createGenerateClassName(),
   };
 }

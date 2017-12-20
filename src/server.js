@@ -23,8 +23,7 @@ import { getDataFromTree } from 'react-apollo';
 import PrettyError from 'pretty-error';
 import { IntlProvider } from 'react-intl';
 import CleanCSS from 'clean-css';
-import JssProvider from 'react-jss/lib/JssProvider';
-import { MuiThemeProvider } from 'material-ui/styles';
+import { Provider } from 'react-redux';
 import './serverIntlPolyfill';
 import createApolloClient from './core/createApolloClient';
 import App from './components/App';
@@ -248,29 +247,16 @@ app.get('*', async (req, res, next) => {
     const data = { ...route };
 
     const RootComponent = (
-      <App context={context} store={store}>
-        {route.component}
-      </App>
+      <Provider store={store}>
+        <App context={context}>{route.component}</App>
+      </Provider>
     );
 
     // 可通过getDataFromTree函数，执行查询后给出一个Promise，完成Apollo客户端实例的初始化
     await getDataFromTree(RootComponent);
     // this is here because of Apollo redux APOLLO_QUERY_STOP action
     await Promise.delay(0);
-    data.children = await ReactDOM.renderToString(
-      <JssProvider
-        registry={styleContext.sheetsRegistry}
-        jss={styleContext.jss}
-        generateClassName={styleContext.generateClassName}
-      >
-        <MuiThemeProvider
-          theme={styleContext.theme}
-          sheetsManager={styleContext.sheetsManager}
-        >
-          {RootComponent}
-        </MuiThemeProvider>
-      </JssProvider>,
-    );
+    data.children = await ReactDOM.renderToString(RootComponent);
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
     data.muicss = styleContext.sheetsRegistry.toString();
     if (process.env.NODE_ENV === 'production') {
@@ -293,7 +279,7 @@ app.get('*', async (req, res, next) => {
       lang: locale,
     };
     // 发送服务端渲染结果 设置初始状态
-    const html = ReactDOM.renderToString(<Html {...data} />);
+    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(route.status || 200);
     res.send(`<!doctype html>${html}`);
   } catch (err) {

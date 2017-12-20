@@ -14,7 +14,7 @@ import Home from '../../components/Mui/index';
 
 // import Layout from '../../components/Layout';
 
-async function action({ styleContext }) {
+async function action() {
   /* const resp = await fetch('/graphql', {
     body: JSON.stringify({
       query: '{news{title,link,content}}',
@@ -25,7 +25,7 @@ async function action({ styleContext }) {
   return {
     chunks: ['home'],
     title: 'React Starter Kit',
-    component: <Home sheetsRegistry={styleContext.sheetsRegistry} />,
+    component: <Home />,
   };
 }
 

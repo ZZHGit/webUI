@@ -11,7 +11,7 @@ import React from 'react';
 // import Mui from '../../components/Mui/Demo';
 import Page from '../../components/Mui/Pages';
 
-function action({ styleContext }) {
+function action() {
   return {
     chunks: ['mui'],
     title: 'app-bar-api',
